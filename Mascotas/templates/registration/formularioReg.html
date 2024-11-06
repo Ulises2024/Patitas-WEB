@@ -1,0 +1,504 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    {% load static %}
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="{% static 'img/logo/logo-favicon/LogoPrimary (1).png' %}">
+      <!-- Font Awesome -->
+    <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    rel="stylesheet"/>
+    <!-- Google Fonts -->
+    <link
+    href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+    rel="stylesheet"/>
+
+
+    <!-- Bootstrap CSS -->
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/formularioRegistro.css' %}">
+    <title>Formulario de registro</title>
+  </head>
+  <body class="loading">
+    <!-- ================================================================= -->
+    <!-- ==============             CARGA DE PAGINA        =============== -->
+    <!-- ================================================================= -->
+    <div id="loader-wrapper">
+      <div id="loader"></div>
+
+      <div class="loader-section section-left"></div>
+      <div class="loader-section section-right"></div>
+
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- ==============             NAV-BAR                =============== -->
+    <!-- ================================================================= -->
+    <nav class="navbar bg-dark navbar-expand-lg">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'index' %}">
+          <img src="{% static 'img/logo/Nuevo_logo/LogoAccent.png' %}" alt="Logo-Accent-Patitas">
+          <span class="text-logo">Patitas</span> 
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+           
+          </ul>
+          <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
+            
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="{% url 'login' %}">
+                
+                <i class="fa-regular fa-circle-user" style="color: #ffffff;"></i>
+                <span>Ingresar</span>
+              </a>
+            </li>
+            
+          </ul>
+
+        </div>
+      </div>
+    </nav>
+    <!-------------------- FIN NAVBAR ------------------------------------->
+
+    
+    <!-- ================================================================= -->
+    <!-- ==============             HEADER DE BODY         =============== -->
+    <!-- ================================================================= -->
+    <!-- <header>
+      <div class="header"><br></div>
+    </header> -->
+    <div class="espacio-top"></div>
+    <!-- ================================================================= -->
+    <!-- ==============             TOP-FORMULARIO         =============== -->
+    <!-- ================================================================= -->
+    
+    <!-- PARA EVITAR SCROLL HORIZONTAL UTILIZAR UN CONTENEDOR PREVIO A UN ROW -->
+    
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="card shadow-lg p-3 mb-5">
+            <div class="box"></div>
+            <a href="{% url 'productos' %}"><img id="logo-patitas" class="logo-top" src="{% static 'img/logo/Nuevo_logo/LogoAccent.png' %}" alt=""></a>
+            <div class="card-header text-white-50"> <h1 class="tit__form">Formulario de Registro</h1></div>
+            {% load crispy_forms_tags %}
+            <div class="card-body container">
+              <!-- AQUI COMIENZA EL FORMULARIO -->
+              
+              <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form | crispy }}
+                <!-- INICIO DE ROW -->
+                <h5>Información personal</h5>
+                <hr class="featurette-divider">
+                <div class="row">
+                  <!-- NOMBRE -->
+                  <div class="nombre col-sm-12 col-md-6 col-lg-4 mb-3">
+                    <label for="nombre" class="form-label">Nombre</label>
+                    <input type="text" class="form-control" id="nombre" pattern="[a-zA-Z]{3,25}" required>
+                    <div class="valid-feedback">
+                      ¡Nombre valido!
+                    </div>
+                    <div class="invalid-feedback">
+                      Digite un Nombre mayor de (3) y menor de (25) caracteres. <br>
+                      Solo letras.
+                    </div>
+                  </div>
+                  <!-- APELLIDO PATERNO -->
+                  <div class="apellido__paterno col-sm-12 col-md-6 col-lg-4 mb-3">
+                    <label for="apellidoPat" class="form-label">Apellido Paterno</label>
+                    <input type="text" class="form-control" id="apellidoPat" pattern="[a-zA-Z]{3,25}" value="" required>
+                    <div class="valid-feedback">
+                      ¡Campo valido!
+                    </div>
+                    <div class="invalid-feedback">
+                      Digite un Nombre mayor de (3) y menor de (25) caracteres. <br>
+                      Solo letras.
+                    </div>
+                  </div>
+                  <!-- APELLIDO MATERNO -->
+                  <div class="apellido__materno col-sm-12 col-md-6 col-lg-4 mb-3">
+                    <label for="apellidoMat" class="form-label">Apellido Materno</label>
+                    <input type="text" class="form-control" id="apellidoMat" pattern="[a-zA-Z]{3,25}" value=""  required>
+                    <div class="valid-feedback">
+                      ¡Campo valido!
+                    </div>
+                    <div class="invalid-feedback">
+                      Digite un Nombre mayor de (3) y menor de (25) caracteres. <br>
+                      Solo letras.
+                    </div>
+                  </div>
+                  <!-- RUT -->
+                  <div class=" col-sm-12 col-md-6 col-lg-4 mb-3">
+                    <label for="rut" class="form-label">Rut</label>
+                    <input type="text" class="form-control" pattern="[0-9]{8,9}-[0-9kK]{1}" id="rut" name="rut" required>
+                    <div class="valid-feedback">
+                      ¡Campo valido!
+                    </div>
+                    <div class="invalid-feedback">
+                      Digite un rutcon guion y sin puntos.
+                    </div>
+                  </div>
+                  <!-- FECHA DE NACIMIENTO -->
+                  <div class="col-sm-12 col-md-6 col-lg-4 mb-3">
+                    <label for="fecha" class="form-label">Fecha de nacimiento</label>
+                    <div class="input-group has-validation">
+                      <input type="date" class="form-control" id="fecha" min="1930-01-01" max="2023-05-30" aria-describedby="inputGroupPrepend" required>
+                      <div class="valid-feedback">
+                        ¡Campo valido!
+                      </div>
+                      <div class="invalid-feedback">
+                        Fecha valida entre 1930-01-01 y 2023-05-30.
+                      </div>
+                    </div>
+                  </div>
+                  <!-- CORREO -->
+                  <div class="col-sm-12 col-md-6 col-lg-4 mb-3">
+                    <label for="correo" class="form-label">Correo Electronico</label>
+                    <div class="input-group has-validation">
+                      <span class="input-group-text" id="inputGroupPrepend">@</span>
+                      <input type="email" class="form-control" id="correo" pattern="[a-z0-9._-]{8,16}@(patitas|gmail|hotmail|duocuc)\.(com|cl|es|ar)" aria-describedby="inputGroupPrepend" required>
+                      <div class="valid-feedback">
+                        ¡Campo valido!
+                      </div>
+                      <div class="invalid-feedback">
+                        Direccion de correo debe tener mas de 8 y <br>
+                        hasta 16 caracteres. Y contener caracteres especiales (.-_).
+                        Dominio hotmail, gmail, patitas y duocuc.
+                      </div>
+                    </div>
+                  </div>
+                  <!-- TELEFONO -->
+                  <div class="col-sm-12 col-md-6 col-lg-4 mb-3">
+                    <label for="telefono" class="form-label">Telefono</label>
+                    <div class="input-group has-validation">
+                      <span class="input-group-text" id="inputGroupPrepend">(+56)</span>
+                      <input type="tel" class="form-control" id="telefono" pattern="[0-9]{9}" min="0" aria-describedby="inputGroupPrepend" required>
+                      <div class="valid-feedback">
+                        ¡Campo valido!
+                      </div>
+                      <div class="invalid-feedback">
+                        Numero de telefono con (9) caracteres.
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- REGIÓN -->
+                  <div class="col-sm-12 col-md-6 col-lg-4 mb-3">
+                    <label for="region" class="form-label">Región</label>
+                    <select class="form-select" id="region" required>
+                      <option selected disabled value="">Selecciona...</option>
+                      <option>Región Metropolitana</option>
+                    </select>
+                    <div class="invalid-feedback">
+                      Please select a valid state.
+                    </div>
+                  </div>
+                  
+                  <!-- COMUNA -->
+                  <div class="col-sm-12 col-md-6 col-lg-4 mb-3">
+                    <label for="comuna" class="form-label">Comuna</label>
+                    <select class="form-select"  id="comuna" required>
+                      <option selected disabled value="">Selecciona...</option>
+                      <option>Vitacura</option>
+                      <option>Santiago</option>
+                      <option value="">San Ramón</option>
+                      <option value="">San Miguel</option>
+                      <option value="">San Joaquín</option>
+                      <option value="">Renca</option>
+                      <option value="">Recoleta</option>
+                      <option value="">Quinta Normal</option>
+                      <option value="">Quilicura</option>
+                      <option value="">Pudahuel</option>
+                      <option value="">Providencia</option>
+                      <option value="">Peñalolén</option>
+                      <option value="">Pedro Aguirre Cerda</option>
+                      <option value="">Ñuñoa</option>
+                      <option value="">Maipú</option>
+                      <option value="">Macul</option>
+                      <option value="">Lo Prado</option>
+                      <option value="">Lo Espejo</option>
+                      <option value="">Lo Barnechea</option>
+                      <option value="">Las Condes</option>
+                      <option value="">La Reina</option>
+                      <option value="">La Pintana</option>
+                      <option value="">La Granja</option>
+                      <option value="">La Florida</option>
+                      <option value="">La Cisterna</option>
+                      <option value="">Independencia</option>
+                      <option value="">Huechuraba</option>
+                      <option value="">Estación Central</option>
+                      <option value="">El Bosque</option>
+                      <option value="">Conchalí</option>
+                      <option value="">Cerro Navia</option>
+                      <option value="">Cerrillos</option>
+                    </select>
+                    <div class="invalid-feedback">
+                      ¡Selecciona una comuna!
+                    </div>
+                  </div>
+                  <!-- DIRECCION -->
+                  <div class="col-sm-12 col-md-6 col-lg-4 mb-3">
+                    <label for="direccion" class="form-label">Dirección</label>
+                    <input type="text" class="form-control" pattern="(calle|avenida|pasaje).#[0-9]{1,4}" id="direccion" required>
+                    <div class="valid-feedback">
+                      ¡Campo valido!
+                    </div>
+                    <div class="invalid-feedback">
+                      Calle/avenida/pasaje #1234
+                    </div>
+                  </div>
+              
+                  </div>
+                  <!-- FIN DE ROW -->
+
+                  <!-- INICIO DE ROW -->
+                  <div class="row">
+                    <h5>Datos de cuenta</h5>
+                    <hr class="featurette-divider">
+                    <!-- USUARIO -->
+                    <div class="usuario col-sm-12 col-md-6 col-lg-4 mb-3">
+                      <label for="usuario" class="form-label">Usuario</label>
+                      <input type="text" class="form-control" pattern="[a-zA-Z0-9]{5,12}" id="usuario" required>
+                      <div class="valid-feedback">
+                        ¡Campo valido!
+                      </div>
+                      <div class="invalid-feedback">
+                        Puede tener entre 5 a 12 caracteres, incluyendo letras Mayusculas y numeros.
+                      </div>
+                    </div>
+                    <!-- CONTRASEÑA -->
+                    <div class="col-sm-12 col-md-6 col-lg-4 mb-3">
+                      <label for="pass1" class="form-label">Contraseña</label>
+                      <input type="password" class="form-control" pattern="[a-zA-Z0-9.-_/]{8,16}" name="pass1" id="pass1" required>
+                      <div class="valid-feedback">
+                        ¡Campo valido!
+                      </div>
+                      <div class="invalid-feedback">
+                        Debe tener entre 8 a 16 caracteres, esto incluye letras Mayusculas y caracteres especiales (. - _ /).
+                      </div>
+                    </div>
+                    <!-- CONFIRMAR CONTRASEÑA -->
+                    <div class="col-sm-12 col-md-6 col-lg-4 mb-3">
+                      <label for="pass2" class="form-label">Confirmar contraseña</label>
+                      <input type="password" class="form-control" pattern="[a-zA-Z0-9.-_/]{8,16}" name="pass2" id="pass2" required>
+                      <div class="valid-feedback">
+                        ¡Campo valido!
+                      </div>
+                      <div class="invalid-feedback">
+                        Debe coincidir con la contraseña anterior.
+                        Debe tener entre 8 a 16 caracteres, esto incluye letras Mayusculas y caracteres especiales (. - _ /).
+                      </div>
+                    </div>
+                    
+                  </div>
+                  <!-- FIN DE ROW -->
+                  <!-- TERMINOS Y CONDICIONES -->
+                  <div class="col-12 mb-5">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
+                      <label class="form-check-label" for="invalidCheck">
+                        Aceptar terminos y condiciones.
+                      </label>
+                      <div class="invalid-feedback">
+                        Debes aceptar los terminos y condiciones antes de continuar. 
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12 ">
+                    <button class="btn btn-primary" id="registrar" type="submit">Registrar</button>
+                  </div>
+                </div>
+              </form>           
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    
+    <!--1.- JQUERY MIN-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js" 
+      integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!--2.- JQUERY VALIDATE-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.js" 
+      integrity="sha512-IFD8s8Ds5M/7XsAQXNXtHVdiA8EnBR6bZhy0R+Y7fruej9fNPkrZ6+0/dP8yfRU1u2x9De4WYGCNvoaIhmhnpg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    
+
+    <!-- ========================================================================= -->
+    <!-- ==============             SCRIPT VALIDACION FORMULARIO   =============== -->
+    <!-- ========================================================================= -->
+    <!-- LLAMAR JS formReg VALIDACION DEL FORMULARIO -->
+    <script src="{% static './js/registro/formReg.js' %}"></script>
+    <script src="{% static './js/registro/formRegJquery.js' %}"></script>
+    <!-- LLAMAR JS LOADER Y FUNCIONALIDAD DE RECARGA -->
+    <script src="{% static './js/patitas/loader.js' %}"></script>
+    <script>
+      // Código JavaScript para quitar la clase "loading" y agregar la clase "loaded" después de una demora
+      window.addEventListener("load", function() {
+        setTimeout(function() {
+          document.body.classList.remove("loading");
+          document.body.classList.add("loaded");
+        }, 1000); // Ajusta el valor de la demora según sea necesario (en milisegundos)
+      });
+    </script>
+  </body>
+  <!-- Footer -->
+  <footer class="btn-dark bg-dark  text-center text-lg-start text-muted mt-3">
+    <!-- Section: Links  -->
+    <section>
+      <div class="container text-center text-md-start pt-4 pb-4">
+        <!-- Grid row -->
+        <div class="row mt-3">
+          <!-- Grid column -->
+          <div class="col-12 col-lg-3 col-sm-12 mb-2 text-center">
+            <!-- Content -->
+            <a href="{% url 'login' %}" target="_blank" class="text-white h2">
+              <img class="mb-3" src="{% static 'img/logo/Nuevo_logo/LogoAccent.png' %}" width="64px" alt="">
+            </a>
+            <p class="mt-1 text-white">
+              © 2023 Copyright - Derechos reservados: Ulises Morales González
+            </p>
+          </div>
+          <!-- Grid column -->
+  
+          <!-- Grid column -->
+          <div class="col-6 col-sm-4 col-lg-2"> 
+            <!-- Links -->
+            <h6 class="text-uppercase text-white fw-bold mb-2">
+              Tienda
+            </h6>
+            <ul class="list-unstyled mb-4">
+              <li><a class="text-white-50" target="_blank" href="https://github.com/ulMorales?tab=repositories">Inicio</a></li>
+              <li><a class="text-white-50" target="_blank" href="https://github.com/ulMorales?tab=repositories">Productos</a></li>
+              <li><a class="text-white-50" target="_blank" href="https://github.com/ulMorales?tab=repositories">Nosotros</a></li>
+              <li><a class="text-white-50" target="_blank" href="https://github.com/ulMorales?tab=repositories">Blogs</a></li>
+            </ul>
+          </div>
+          <!-- Grid column -->
+  
+          <!-- Grid column -->
+          <div class="col-6 col-sm-4 col-lg-2">
+            <!-- Links -->
+            <h6 class="text-uppercase text-white fw-bold mb-2">
+              Información
+            </h6>
+            <ul class="list-unstyled mb-4">
+              <li><a class="text-white-50" target="_blank" href="https://github.com/ulMorales?tab=repositories">Ayuda</a></li>
+              <li><a class="text-white-50" target="_blank" href="https://github.com/ulMorales?tab=repositories">Reembolso</a></li>
+              <li><a class="text-white-50" target="_blank" href="https://github.com/ulMorales?tab=repositories">Informaciones</a></li>
+              <li><a class="text-white-50" target="_blank" href="https://github.com/ulMorales?tab=repositories">Contacto</a></li>
+            </ul>
+          </div>
+          <!-- Grid column -->
+  
+          <!-- Grid column -->
+          <div class="col-6 col-sm-4 col-lg-2">
+            <!-- Links -->
+            <h6 class="text-uppercase text-white fw-bold mb-2">
+              Soporte tecnico
+            </h6>
+            <ul class="list-unstyled mb-4">
+              <li><a class="text-white-50" href="https://github.com/ulMorales?tab=repositories" target="_blank">Centro de ayuda</a></li>
+              <li><a class="text-white-50" href="https://github.com/ulMorales?tab=repositories" target="_blank">Documentos</a></li>
+              <li><a class="text-white-50" href="https://github.com/ulMorales?tab=repositories" target="_blank">Restaurar cuenta</a></li>
+              <li><a class="text-white-50" href="https://github.com/ulMorales?tab=repositories" target="_blank">Mis ordenes</a></li>
+            </ul>
+          </div>
+          <!-- Grid column -->
+  
+          <!-- Grid column -->
+          <div class="col-12 col-sm-12 col-lg-3">
+            <!-- Links -->
+            <h6 class="text-uppercase text-white fw-bold mb-2">Novedades</h6>
+            <p class="text-white">Mantente al tanto de las ultimas novedades sobre nuestros productos y ofertas.</p>
+            <!-- <div class="input-group mb-3">
+              <input type="email" class="form-control border" placeholder="Correo" aria-label="Email" aria-describedby="button-addon2" />
+              <button class="btn btn-light border shadow-0" type="button" id="button-addon2" data-mdb-ripple-color="dark">
+                Enviar
+              </button>
+            </div> -->
+          </div>
+          <!-- Grid column -->
+        </div>
+        <!-- Grid row -->
+      </div>
+    </section>
+    <!-- Section: Links  -->
+  
+    <div class="footer-iconos">
+      <div class="container">
+        <div class="d-flex justify-content-between py-4 border-top">
+          <!--- payment --->
+          <div>
+            <i class="fab fa-lg fa-cc-visa text-white"></i>
+            <i class="fab fa-lg fa-cc-amex text-white"></i>
+            <i class="fab fa-lg fa-cc-mastercard text-white"></i>
+            <i class="fab fa-lg fa-cc-paypal text-white"></i>
+  
+            
+          </div>
+          <!--- payment --->
+          <div class="social">
+            <a href="https://github.com/ulMorales?tab=repositories" target="_blank" class="social__enlace"><i class="fa-brands fa-facebook"></i></a>
+            <a href="https://github.com/ulMorales?tab=repositories" target="_blank" class="social__enlace"><i class="fa-brands fa-instagram"></i></a>
+            <a href="https://github.com/ulMorales?tab=repositories" target="_blank" class="social__enlace"><i class="fa-brands fa-github"></i></a>
+            <a href="https://github.com/ulMorales?tab=repositories" target="_blank" class="social__enlace"><i class="fa-brands fa-twitter"></i></a>
+            
+          </div>
+  
+          <!--- language selector --->
+          <div class="dropdown dropup">
+            <a class="dropdown-toggle text-white" href="#" id="Dropdown" role="button" data-mdb-toggle="dropdown" aria-expanded="false"> <i class="flag-spain flag m-0 me-1"></i>Español </a>
+  
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="Dropdown">
+              <li>
+                <a class="dropdown-item" href="#"><i class="flag-spain flag"></i>Español<i class="fa fa-check text-success ms-2"></i></a>
+              </li>
+              <li><hr class="dropdown-divider" /></li>
+              <li>
+                <a class="dropdown-item" href="#"><i class="flag-united-kingdom flag"></i>English</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="#"><i class="flag-poland flag"></i>Polski</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="#"><i class="flag-china flag"></i>中文</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="#"><i class="flag-japan flag"></i>日本語</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="#"><i class="flag-germany flag"></i>Deutsch</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="#"><i class="flag-france flag"></i>Français</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="#"><i class="flag-russia flag"></i>Русский</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="#"><i class="flag-portugal flag"></i>Português</a>
+              </li>
+            </ul>
+          </div>
+          <!--- language selector --->
+        </div>
+      </div>
+    </div>
+  </footer>
+  <!-- Footer -->
+</html>

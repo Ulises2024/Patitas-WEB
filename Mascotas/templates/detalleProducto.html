@@ -1,0 +1,616 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    {% load static %}
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="{% static 'img/logo/Nuevo_logo/LogoAccent.png' %}">
+    <!-- Font Awesome -->
+    <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"rel="stylesheet"/>
+    <!-- Google Fonts -->
+    <link
+    href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+    rel="stylesheet"/>
+
+    <!-- MDB -->
+    <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.css"
+    rel="stylesheet"/>
+
+    <!-- BOOTSTRAP -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/css/bootstrap.min.css" integrity="sha512-YsQsOFsZnSmn8XF+bIJ+Yq3maq26/q/fJWfQ+e/aMz9L1hG+kWyRtUbY8cqgJXY3qdbkOoCxPQW8QvL+h1XGg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- glider-js estilos -->
+    <link href="{% static 'vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glider-js@1.7.8/glider.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css">
+    <!-- JQUERY -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    
+    <!-- CDN MOMENT -->
+     <!-- Enlace al CDN de Moment.js -->
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+    <link rel="stylesheet" href="{% static './css/detalleProducto.css' %}">
+    <link rel="stylesheet" href="{% static './css/patitas.css' %}">
+    <title>Detalle de producto</title>
+      </head>
+      <body class="loading">
+        <!-- ================================================================= -->
+        <!-- ==============             CARGA DE PAGINA        =============== -->
+        <!-- ================================================================= -->
+        <div id="loader-wrapper">
+          <div id="loader"></div>
+    
+          <div class="loader-section section-left"></div>
+          <div class="loader-section section-right"></div>
+    
+        </div>
+        <!-- ----------------------------------------------------------------- -->
+
+        <!-- ================================================================= -->
+        <!-- ==============             NAV-BAR                =============== -->
+        <!-- ================================================================= -->
+        <nav class="navbar bg-dark navbar-expand-lg">
+          <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'index' %}">
+              <img src="{% static 'img/logo/Nuevo_logo/LogoAccent.png' %}" alt="Logo-Accent-Patitas">
+              <span class="text-logo">Patitas</span> 
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+              <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'nosotros' %}">Nosotros</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'productos' %}">Productos</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="https://www.santuarioigualdad.cl/">Fundación</a>
+                </li>
+                {% if user.is_authenticated %}
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'adminPage' %}">Administrador</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'carrito' %}">Carrito</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="http://127.0.0.1:8000/admin/" target="_blank">DATABASE</a>
+                </li>
+                {% endif %}
+              </ul>
+              <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                  {% if user.is_authenticated %}
+                  <a class="nav-link" aria-current="page" href="{% url 'carrito' %}">
+                    <i class="fa-solid fa-cart-shopping" style="color: #ffffff;"></i>
+                    <span>Carrito</span>
+                  </a>
+                  {% endif %}
+                </li>
+              </ul>
+              <ul class="navbar-nav">
+                <li class="nav-item">
+                  {% if user.is_authenticated %}
+                  <div class="btn-group" style="height: 50px;">
+                    <div class="me-2">
+                      <a href="#" class="text-center">
+                        <i class="fas fa-envelope" style="color: #ffffff;"></i>
+                      </a>
+                      <a href="#" class="text-center">
+                        <i class="fa-solid fa-bell text-center " style="color: #ffffff; width: 10px;"></i>
+                      </a>
+                    </div>
+                    <button type="button" class="btn btn-dark dropdown-toggle " data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
+                      <div class="d-flex align-items-center justify-content-center text-center px-4">
+                        <img src="https://mdbcdn.b-cdn.net/img/new/avatars/8.webp" class="rounded-circle mb-3 me-2" style="width: 40px;" alt="Avatar" />
+                        <span class="pb-3">{{ user.username }}</span>
+                      </div>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-md-start">
+                      <li>
+                        <a class="dropdown-item" href="#">
+                          <span style="font-size: 0.8em;">Mi perfil</span>
+                        </a>
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="{% url 'carrito' %}">
+                          <span style="font-size: 0.8em;">Compras</span>
+                        </a>
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="{% url 'logout' %}">
+                          <span style="font-size: 0.8em;">Cerrar sesión</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                  {% else %}
+                  <a class="nav-link" aria-current="page" href="{% url 'login' %}">
+                    <i class="fa-regular fa-circle-user" style="color: #ffffff;">&nbsp; Iniciar sesión</i>
+                  </a>
+                  {% endif %}
+                </li>
+              </ul>      
+            </div>
+          </div>
+        </nav>
+        <!-------------------- FIN NAVBAR ------------------------------------->
+        <!-- ================================================================= -->
+        <!-- ==============             HEADER                 =============== -->
+        <!-- ================================================================= -->
+        <header>
+            <!-- Heading -->
+            <div class="contenedor__header">
+              <div class="container py-4">
+                <!-- Breadcrumb -->
+                <nav class="d-flex">
+                  <h6 class="mb-0">
+                    <a href="{% url 'index' %}" class="text-white-50">Inicio</a>
+                    <span class="text-white-50 mx-2"> > </span>
+                    <a href="{% url 'productos' %}" class="text-white-50">Productos</a>
+                    <span class="text-white-50 mx-2"> > </span>
+                    <a href="" class="text-white"><u>Detalle de productos</u></a>
+                  </h6>
+                </nav>
+                <!-- Breadcrumb -->
+              </div>
+            </div>
+            <!-- Heading -->
+        </header>
+          <!-- content -->
+          <section class=" contenedor__detalle-producto py-5">
+            <div class="container">
+              <div class="row gx-5">
+                <aside class="col-lg-6">
+                  <div class="border rounded-4 mb-3 d-flex justify-content-center">
+                    <a class="rounded-4" target="_blank" data-type="image" href="#">
+                      <img style="max-width: 100%; width: 500px; max-height: 100vh; margin: auto;" class="rounded-4 fit" src="{% static './img/productos/Cama-amarilla.png' %}" />
+                    </a>
+                  </div>
+                  <div class="d-flex justify-content-center mb-3">
+                    <a data-fslightbox="mygalley" class="border mx-1 rounded-2" target="_blank" data-type="image"  class="item-thumb">
+                      <img width="60" height="60" class="rounded-2" src="{% static './img/productos/Cama-amarilla.png' %}" />
+                    </a>
+                    <a data-fslightbox="mygalley" class="border mx-1 rounded-2" target="_blank" data-type="image"  class="item-thumb">
+                      <img width="60" height="60" class="rounded-2" src="{% static './img/Cama-assets/Cama--morada.png' %}" />
+                    </a>
+                    <a data-fslightbox="mygalley" class="border mx-1 rounded-2" target="_blank" data-type="image"  class="item-thumb">
+                      <img width="60" height="60" class="rounded-2" src="{% static './img/Cama-assets/Cama--gris.png' %}" />
+                    </a>
+                  </div>
+                </aside>
+                <main class="col-lg-6">
+                  <div class="ps-lg-3">
+                    <h4 class="title text-white">
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit. <br />
+                      Lorem, ipsum.
+                    </h4>
+                    <div class="d-flex flex-row my-3">
+                      <div class="text-warning mb-1 me-2">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                        <span class="ms-1 text-warning">
+                          4.5
+                        </span>
+                      </div>
+                      <span class="text-muted"><i class="fas fa-shopping-basket fa-sm mx-1"></i>154 ordenes</span>
+                      <span class="text-primary ms-2">En stock</span>
+                    </div>
+          
+                    <div class="mb-3">
+                      <span class="h5">$75.000 pesos</span>
+                      <span class="text-muted">/por unidad</span>
+                    </div>
+          
+                    <p>
+                      Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eum cumque animi quas, sit nam id incidunt molestias eius officia delectus est optio quisquam, quod tenetur laboriosam autem perspiciatis beatae voluptatum?
+                    </p>
+          
+                    <div class="row text__detalle-producto">
+                      <dt class="col-3">Tipo:</dt>
+                      <dd class="col-9">Regular</dd>
+          
+                      <dt class="col-3">Color</dt>
+                      <dd class="col-9">Rojo</dd>
+          
+                      <dt class="col-3">Material</dt>
+                      <dd class="col-9">Cuero vegetal</dd>
+          
+                      <dt class="col-3">Marca</dt>
+                      <dd class="col-9">Patitas</dd>
+                    </div>
+          
+                    <hr />
+          
+                    <div class="row mb-4">
+                      <div class="col-md-4 col-6">
+                        <label class="mb-2 text__detalle-talla">Talla</label>
+                        <select class="form-select border border-secondary" style="height: 35px;">
+                          <option>Pequeña</option>
+                          <option>Mediana</option>
+                          <option>Grande</option>
+                        </select>
+                      </div>
+                      <!-- col.// -->
+                      <div class="col-md-4 col-6 mb-3">
+                        <label class="mb-2 d-block text__detalle-cantidad">Cantidad</label>
+                        <div class="input-group mb-3 " style="width: 170px;">
+                          <button class="btn btn-white border border-secondary px-3" type="button" id="button-addon1" data-mdb-ripple-color="dark">
+                            <i class="fas fa-minus"></i>
+                          </button>
+                          <input type="text" class="form-control text-center border border-secondary" placeholder="14" aria-label="Example text with button addon" aria-describedby="button-addon1" />
+                          <button class="btn btn-white border border-secondary px-3" type="button" id="button-addon2" data-mdb-ripple-color="dark">
+                            <i class="fas fa-plus"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <button type="button" id="btn__comprar" class="btn btn-warning shadow-0 ">
+                      <span></span>
+                      <span></span>
+                      <span></span>
+                      <span></span>
+                      <i class="fa-regular fa-credit-card"></i> Comprar
+                    </button>
+                    
+                    <button type="button" id="btn__agregar" class="btn btn-primary shadow-0 ">
+                      <span></span>
+                      <span></span>
+                      <span></span>
+                      <span></span>
+                      <i class="me-1 fa fa-shopping-basket"></i>Agregar al carro
+                    </button>
+                    <button type="button" id="btn__like" class="btn btn-light border border-danger py-2 icon-hover px-3 ">
+                      <span></span>
+                      <span></span>
+                      <span></span>
+                      <span></span>
+                      <i class="me-1 fa fa-heart fa-lg"></i> Me gusta
+                    </button>
+                  </div>
+                </main>
+              </div>
+            </div>
+          </section>
+          <!-- content -->
+          <section class="bg-light border-top py-4">
+            <div class="container">
+              <div class="row gx-4">
+                <div class="col-lg-8 mb-4">
+                  <div class="border rounded-2 px-3 py-2 bg-white">
+                    <!-- Pills navs -->
+                    <ul class="nav nav-pills nav-justified mb-3" id="ex1" role="tablist">
+                      <li class="nav-item text__activo-nav-item d-flex" role="presentation">
+                        <a class="nav-link text__activo-nav-link d-flex align-items-center justify-content-center w-100 active" id="ex1-tab-1" data-mdb-toggle="pill" href="#ex1-pills-1" role="tab" aria-controls="ex1-pills-1" aria-selected="true">Especificaciones</a>
+                      </li>
+                      <li class="nav-item d-flex" role="presentation">
+                        <a class="nav-link d-flex align-items-center justify-content-center w-100" id="ex1-tab-2" data-mdb-toggle="pill" href="#ex1-pills-2" role="tab" aria-controls="ex1-pills-2" aria-selected="false">Información de garantia</a>
+                      </li>
+                      <li class="nav-item d-flex" role="presentation">
+                        <a class="nav-link d-flex align-items-center justify-content-center w-100" id="ex1-tab-3" data-mdb-toggle="pill" href="#ex1-pills-3" role="tab" aria-controls="ex1-pills-3" aria-selected="false">Información de compra</a>
+                      </li>
+                      <li class="nav-item d-flex" role="presentation">
+                        <a class="nav-link d-flex align-items-center justify-content-center w-100" id="ex1-tab-4" data-mdb-toggle="pill" href="#ex1-pills-4" role="tab" aria-controls="ex1-pills-4" aria-selected="false">Perfil del vendedor</a>
+                      </li>
+                    </ul>
+                    <!-- Pills navs -->
+          
+                    <!-- Pills content -->
+                    <div class="tab-content" id="ex1-content">
+                      <div class="tab-pane fade show active" id="ex1-pills-1" role="tabpanel" aria-labelledby="ex1-tab-1">
+                        <p>
+                          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Porro suscipit consequuntur nam omnis magnam a velit sint amet, laborum quis ut, quam perspiciatis nostrum culpa.
+                        </p>
+                        <div class="row mb-2">
+                          <div class="col-12 col-md-6">
+                            <ul class="list-unstyled mb-0">
+                              <li><i class="fas fa-check text-success me-2"></i>Lorem ipsum dolor sit amet.</li>
+                              <li><i class="fas fa-check text-success me-2"></i>Lorem ipsum dolor sit amet, consectetur</li>
+                              <li><i class="fas fa-check text-success me-2"></i>Duis aute irure dolor in reprehenderit</li>
+                              <li><i class="fas fa-check text-success me-2"></i>Lorem ipsum dolor sit amet consectetur.</li>
+                            </ul>
+                          </div>
+                          <div class="col-12 col-md-6 mb-0">
+                            <ul class="list-unstyled">
+                              <li><i class="fas fa-check text-success me-2"></i>Lorem ipsum dolor sit.</li>
+                              <li><i class="fas fa-check text-success me-2"></i>Lorem ipsum dolor sit.</li>
+                              <li><i class="fas fa-check text-success me-2"></i>Lorem ipsum dolor sit amet.</li>
+                            </ul>
+                          </div>
+                        </div>
+                        <table class="table border mt-3 mb-2">
+                          <tr>
+                            <th class="py-2">Caracteristicas 1:</th>
+                            <td class="py-2">Lorem ipsum dolor sit.</td>
+                          </tr>
+                          <tr>
+                            <th class="py-2">Caracteristicas 2:</th>
+                            <td class="py-2">Lorem ipsum dolor sit.</td>
+                          </tr>
+                          <tr>
+                            <th class="py-2">Caracteristicas 3:</th>
+                            <td class="py-2">Lorem, ipsum dolor.</td>
+                          </tr>
+                          <tr>
+                            <th class="py-2">Caracteristicas 4:</th>
+                            <td class="py-2">Lorem ipsum dolor sit amet.</td>
+                          </tr>
+                          <tr>
+                            <th class="py-2">Caracteristicas 5:</th>
+                            <td class="py-2">Lorem ipsum dolor sit amet consectetur.</td>
+                          </tr>
+                        </table>
+                      </div>
+                      <div class="tab-pane fade mb-2" id="ex1-pills-2" role="tabpanel" aria-labelledby="ex1-tab-2">
+                        Tab content or sample information now <br />
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+                        aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
+                        officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+                        nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                      </div>
+                      <div class="tab-pane fade mb-2" id="ex1-pills-3" role="tabpanel" aria-labelledby="ex1-tab-3">
+                        Another tab content or sample information now <br />
+                        Dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+                        mollit anim id est laborum.
+                      </div>
+                      <div class="tab-pane fade mb-2" id="ex1-pills-4" role="tabpanel" aria-labelledby="ex1-tab-4">
+                        Some other tab content or sample information now <br />
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+                        aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
+                        officia deserunt mollit anim id est laborum.
+                      </div>
+                    </div>
+                    <!-- Pills content -->
+                  </div>
+                </div>
+                <div class="col-lg-4">
+                  <div class="px-0 border rounded-2 shadow-0">
+                    <div class="card">
+                      <div class="card-body">
+                        <h5 class="card-title">Articulos similares</h5>
+                        <div class="d-flex mb-3">
+                          <a href="#" class="me-3">
+                            <img src="{% static './img/Cama-assets/Cama-amarilla.png' %}" />
+                          </a>
+                          <div class="info">
+                            <a href="#" class="nav-link mb-1">
+                              Lorem, ipsum dolor. <br />
+                              Lorem, ipsum.
+                            </a>
+                            <strong class="text-dark"> $38.90</strong>
+                          </div>
+                        </div>
+          
+                        <div class="d-flex mb-3">
+                          <a href="#" class="me-3">
+                            <img src="{% static './img/Cama-assets/Cama--gris.png' %}" style="min-width: 96px; height: 96px;" class="img-md img-thumbnail" />
+                          </a>
+                          <div class="info">
+                            <a href="#" class="nav-link mb-1">
+                              Summer New Men's Denim <br />
+                              Jeans Shorts
+                            </a>
+                            <strong class="text-dark"> $29.50</strong>
+                          </div>
+                        </div>
+          
+                        <div class="d-flex mb-3">
+                          <a href="#" class="me-3">
+                            <img src="{% static './img/Cama-assets/Cama--morada.png' %}" style="min-width: 96px; height: 96px;" class="img-md img-thumbnail" />
+                          </a>
+                          <div class="info">
+                            <a href="#" class="nav-link mb-1"> T-shirts with multiple colors, for men and lady </a>
+                            <strong class="text-dark"> $120.00</strong>
+                          </div>
+                        </div>
+          
+                        <div class="d-flex">
+                          <a href="#" class="me-3">
+                            <img src="{% static './img/Cama-assets/Cama--gris.png' %}" style="min-width: 96px; height: 96px;" class="img-md img-thumbnail" />
+                          </a>
+                          <div class="info">
+                            <a href="#" class="nav-link mb-1"> Blazer Suit Dress Jacket for Men, Blue color </a>
+                            <strong class="text-dark"> $339.90</strong>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          
+          
+          
+
+    <!-- GLIDER JS - CAROUSEL -->
+    <script src="https://cdn.jsdelivr.net/npm/glider-js@1.7.8/glider.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fontawesome@5.6.3/index.min.js"></script>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+
+    <!-- JQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Bootstrap JS -->
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- ==============             SCRIPT PAGINA LOADER   =============== -->
+    <!-- ================================================================= -->
+    <!-- LLAMAR JS LOADER Y FUNCIONALIDAD DE RECARGA -->
+    <!-- ================================================================= -->
+    <script src="{% static './js/loader.js' %}"></script>
+    <script>
+      // Código JavaScript para quitar la clase "loading" y agregar la clase "loaded" después de una demora
+      window.addEventListener("load", function() {
+        setTimeout(function() {
+          document.body.classList.remove("loading");
+          document.body.classList.add("loaded");
+        }, 1000); // Ajusta el valor de la demora según sea necesario (en milisegundos)
+      });
+    </script>
+    <script src="{% static './js/carouselMarcas.js' %}"></script>
+    <script src="{% static './js/cargarPag.js' %}"></script>
+
+
+  </body>
+  <!-- Footer -->
+  <footer class="btn-dark bg-dark  text-center text-lg-start text-muted mt-3">
+    <!-- Section: Links  -->
+    <section>
+      <div class="container text-center text-md-start pt-4 pb-4">
+        <!-- Grid row -->
+        <div class="row mt-3">
+          <!-- Grid column -->
+          <div class="col-12 col-lg-3 col-sm-12 mb-2 text-center">
+            <!-- Content -->
+            <a href="{% url 'index' %}" target="_blank" class="text-white h2">
+              <img class="mb-3" src="{% static './img/logo/Nuevo_logo/LogoAccent.png' %}" width="64px" alt="">
+            </a>
+            <p class="mt-1 text-white">
+              © 2023 Copyright - Derechos reservados: Ulises Morales González
+            </p>
+          </div>
+          <!-- Grid column -->
+
+          <!-- Grid column -->
+          <div class="col-6 col-sm-4 col-lg-2"> 
+            <!-- Links -->
+            <h6 class="text-uppercase text-white fw-bold mb-2">
+              Tienda
+            </h6>
+            <ul class="list-unstyled mb-4">
+              <li><a class="text-white-50" target="_blank" href="https://github.com/ulMorales?tab=repositories">Inicio</a></li>
+              <li><a class="text-white-50" target="_blank" href="https://github.com/ulMorales?tab=repositories">Productos</a></li>
+              <li><a class="text-white-50" target="_blank" href="https://github.com/ulMorales?tab=repositories">Nosotros</a></li>
+              <li><a class="text-white-50" target="_blank" href="https://github.com/ulMorales?tab=repositories">Blogs</a></li>
+            </ul>
+          </div>
+          <!-- Grid column -->
+
+          <!-- Grid column -->
+          <div class="col-6 col-sm-4 col-lg-2">
+            <!-- Links -->
+            <h6 class="text-uppercase text-white fw-bold mb-2">
+              Información
+            </h6>
+            <ul class="list-unstyled mb-4">
+              <li><a class="text-white-50" target="_blank" href="https://github.com/ulMorales?tab=repositories">Ayuda</a></li>
+              <li><a class="text-white-50" target="_blank" href="https://github.com/ulMorales?tab=repositories">Reembolso</a></li>
+              <li><a class="text-white-50" target="_blank" href="https://github.com/ulMorales?tab=repositories">Informaciones</a></li>
+              <li><a class="text-white-50" target="_blank" href="https://github.com/ulMorales?tab=repositories">Contacto</a></li>
+            </ul>
+          </div>
+          <!-- Grid column -->
+
+          <!-- Grid column -->
+          <div class="col-6 col-sm-4 col-lg-2">
+            <!-- Links -->
+            <h6 class="text-uppercase text-white fw-bold mb-2">
+              Soporte tecnico
+            </h6>
+            <ul class="list-unstyled mb-4">
+              <li><a class="text-white-50" href="https://github.com/ulMorales?tab=repositories" target="_blank">Centro de ayuda</a></li>
+              <li><a class="text-white-50" href="https://github.com/ulMorales?tab=repositories" target="_blank">Documentos</a></li>
+              <li><a class="text-white-50" href="https://github.com/ulMorales?tab=repositories" target="_blank">Restaurar cuenta</a></li>
+              <li><a class="text-white-50" href="https://github.com/ulMorales?tab=repositories" target="_blank">Mis ordenes</a></li>
+            </ul>
+          </div>
+          <!-- Grid column -->
+
+          <!-- Grid column -->
+          <div class="col-12 col-sm-12 col-lg-3">
+            <!-- Links -->
+            <h6 class="text-uppercase text-white fw-bold mb-2">Novedades</h6>
+            <p class="text-white">Mantente al tanto de las ultimas novedades sobre nuestros productos y ofertas.</p>
+            <div class="input-group mb-3">
+              <!-- <input type="email" class="form-control border" placeholder="Correo" aria-label="Email" aria-describedby="button-addon2" />
+              <button class="btn btn-light border shadow-0" type="button" id="button-addon2" data-mdb-ripple-color="dark">
+                Enviar
+              </button> -->
+            </div>
+          </div>
+          <!-- Grid column -->
+        </div>
+        <!-- Grid row -->
+      </div>
+    </section>
+    <!-- Section: Links  -->
+
+    <div class="footer-iconos">
+      <div class="container">
+        <div class="d-flex justify-content-between py-4 border-top">
+          <!--- payment --->
+          <div>
+            <i class="fab fa-lg fa-cc-visa text-white"></i>
+            <i class="fab fa-lg fa-cc-amex text-white"></i>
+            <i class="fab fa-lg fa-cc-mastercard text-white"></i>
+            <i class="fab fa-lg fa-cc-paypal text-white"></i>
+
+            
+          </div>
+          <!--- payment --->
+          <div class="social">
+            <a href="https://github.com/ulMorales?tab=repositories" target="_blank" class="social__enlace"><i class="fa-brands fa-facebook"></i></a>
+            <a href="https://github.com/ulMorales?tab=repositories" target="_blank" class="social__enlace"><i class="fa-brands fa-instagram"></i></a>
+            <a href="https://github.com/ulMorales?tab=repositories" target="_blank" class="social__enlace"><i class="fa-brands fa-github"></i></a>
+            <a href="https://github.com/ulMorales?tab=repositories" target="_blank" class="social__enlace"><i class="fa-brands fa-twitter"></i></a>
+            
+          </div>
+
+          <!--- language selector --->
+          <div class="dropdown dropup">
+            <a class="dropdown-toggle text-white" href="#" id="Dropdown" role="button" data-mdb-toggle="dropdown" aria-expanded="false"> <i class="flag-spain flag m-0 me-1"></i>Español </a>
+
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="Dropdown">
+              <li>
+                <a class="dropdown-item" href="#"><i class="flag-spain flag"></i>Español<i class="fa fa-check text-success ms-2"></i></a>
+              </li>
+              <li><hr class="dropdown-divider" /></li>
+              <li>
+                <a class="dropdown-item" href="#"><i class="flag-united-kingdom flag"></i>English</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="#"><i class="flag-poland flag"></i>Polski</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="#"><i class="flag-china flag"></i>中文</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="#"><i class="flag-japan flag"></i>日本語</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="#"><i class="flag-germany flag"></i>Deutsch</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="#"><i class="flag-france flag"></i>Français</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="#"><i class="flag-russia flag"></i>Русский</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="#"><i class="flag-portugal flag"></i>Português</a>
+              </li>
+            </ul>
+          </div>
+          <!--- language selector --->
+        </div>
+      </div>
+    </div>
+  </footer>
+  <!-- Footer -->
+
+</html>

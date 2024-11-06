@@ -1,0 +1,8 @@
+pillow
+django-admin-interface
+django-colorfield
+django-bootstrap5
+django-bootstrap4
+django-crispy-forms==2.3
+django-crispy-forms==1.14.0
+django-humanize

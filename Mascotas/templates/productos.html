@@ -1,0 +1,665 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    {% load static %}
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="shortcut icon" href="{% static 'img/logo/Nuevo_logo/LogoAccent.png' %}">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'css/productos.css' %}">
+    <!-- Font Awesome -->
+    <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    rel="stylesheet"/>
+    <!-- Google Fonts -->
+    <link
+    href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+    rel="stylesheet"/>
+
+    <!-- MDB -->
+    <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.css"
+    rel="stylesheet"/>
+
+    <!-- JQUERY -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <!-- glider-js estilos -->
+    <link href="{% static './vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glider-js@1.7.8/glider.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css">
+    <link href="{% static './vendor/aos/aos.css' %}" rel="stylesheet">
+    <title>Productos</title>
+  </head>
+  <body class="loading">
+    <!-- ================================================================= -->
+    <!-- ==============             CARGA DE PAGINA        =============== -->
+    <!-- ================================================================= -->
+    <div id="loader-wrapper">
+      <div id="loader"></div>
+
+      <div class="loader-section section-left"></div>
+      <div class="loader-section section-right"></div>
+
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- ==============             HEADER                 =============== -->
+    <!-- ================================================================= -->
+    <!--Main Navigation-->
+    <header>
+      <!-- ================================================================= -->
+    <!-- ==============             NAV-BAR                =============== -->
+    <!-- ================================================================= -->
+    <nav class="navbar bg-dark navbar-expand-lg">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'index' %}">
+          <img src="{% static 'img/logo/Nuevo_logo/LogoAccent.png' %}" alt="Logo-Accent-Patitas">
+          <span class="text-logo">Patitas</span> 
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+          <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+            
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'nosotros' %}">Nosotros</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'productos' %}">Productos</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="https://www.santuarioigualdad.cl/">Fundación</a>
+            </li>
+            {% if user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'adminPage' %}">Administrador</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'carrito' %}">Carrito</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="http://127.0.0.1:8000/admin/" target="_blank">DATABASE</a>
+            </li>
+            {% endif %}
+          </ul>
+          <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              {% if user.is_authenticated %}
+              <a class="nav-link" aria-current="page" href="{% url 'carrito' %}">
+                <i class="fa-solid fa-cart-shopping" style="color: #ffffff;"></i>
+                <span>Carrito</span>
+              </a>
+              {% endif %}
+            </li>
+          </ul>
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              {% if user.is_authenticated %}
+              <div class="btn-group" style="height: 50px;">
+                <div class="me-2">
+                  <a href="#" class="text-center">
+                    <i class="fas fa-envelope" style="color: #ffffff;"></i>
+                  </a>
+                  <a href="#" class="text-center">
+                    <i class="fa-solid fa-bell text-center " style="color: #ffffff; width: 10px;"></i>
+                  </a>
+                </div>
+                <button type="button" class="btn btn-dark dropdown-toggle " data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
+                  <div class="d-flex align-items-center justify-content-center text-center px-4">
+                    <img src="https://mdbcdn.b-cdn.net/img/new/avatars/8.webp" class="rounded-circle mb-3 me-2" style="width: 40px;" alt="Avatar" />
+                    <span class="pb-3">{{ user.username }}</span>
+                  </div>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-md-start">
+                  <li>
+                    <a class="dropdown-item" href="#">
+                      <span style="font-size: 0.8em;">Mi perfil</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="{% url 'carrito' %}">
+                      <span style="font-size: 0.8em;">Compras</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="{% url 'logout' %}">
+                      <span style="font-size: 0.8em;">Cerrar sesión</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              {% else %}
+              <a class="nav-link" aria-current="page" href="{% url 'login' %}">
+                <i class="fa-regular fa-circle-user" style="color: #ffffff;">&nbsp; Iniciar sesión</i>
+              </a>
+              {% endif %}
+            </li>
+          </ul>      
+        </div>
+      </div>
+    </nav>
+    <!-------------------- FIN NAVBAR ------------------------------------->
+
+      <!-- Heading -->
+      <div class="  mb-4">
+        <div class="container header__bg py-4">
+          <h3 id="head-tit" class="text-white mt-2">Perro</h3>
+          <!-- Breadcrumb -->
+          <nav class="d-flex mb-2">
+            <h6 class="mb-0">
+              <a href="{% url 'index' %}" class="text-white-50">Inicio</a>
+              <span class="text-white-50 mx-2"> > </span>
+              <a href="" class="text-white-50">Productos</a>
+              <span class="text-white-50 mx-2"> > </span>
+              <a href="" class="text-white"><u>Perro</u></a>
+            </h6>
+          </nav>
+          <!-- Breadcrumb -->
+        </div>
+      </div>
+      <!-- Heading -->
+    </header>
+
+<!-- sidebar + content -->
+<section class="">
+  <div class="container">
+    <div class="row">
+      <!-- sidebar -->
+      <div class="col-lg-3">
+        <!-- Toggle button -->
+        <button
+                class="btn btn-outline-secondary text-dark bg-info mb-3 w-100 d-lg-none"
+                type="button"
+                data-mdb-toggle="collapse"
+                data-mdb-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+                >
+          <span>Mostrar Filtros</span>
+        </button>
+        <!-- Collapsible wrapper -->
+        <div class="collapse card d-lg-block mb-5" id="navbarSupportedContent">
+          <!-- ACORDION - PRODUCTOS RELACIONADOS -->
+          <div class="accordion" id="accordionPanelsStayOpenExample">
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+                  <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                      Productos relacionados
+                  </button>
+              </h2>
+              <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
+                  <div class="accordion-body">
+                      <ul class="list-unstyled">
+                          {% for producto in page_obj %}
+                              <li>
+                                  <a href="?categoria_id={{ categoria.id }}" class="text-primary">{{ producto.categoria }} ({{ producto.categoria.producto_set.count }})</a>
+                              </li>
+                          {% endfor %}
+                      </ul>
+                  </div>
+              </div>
+          </div>
+          
+            <!-- ACORDION - PRODUCTOS RELACIONADOS -->
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+                  Marcas
+                </button>
+              </h2>
+              <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
+                <div class="accordion-body">
+                  <div>
+                    <!-- Checked checkbox -->
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked1" checked />
+                      <label class="form-check-label" for="flexCheckChecked1">Cannes</label>
+                      <span class="badge badge-secondary float-end">120</span>
+                    </div>
+                    <!-- Checked checkbox -->
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked2" checked />
+                      <label class="form-check-label" for="flexCheckChecked2">Champion Dog</label>
+                      <span class="badge badge-secondary float-end">15</span>
+                    </div>
+                    <!-- Checked checkbox -->
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked3" checked />
+                      <label class="form-check-label" for="flexCheckChecked3">Dog Chow</label>
+                      <span class="badge badge-secondary float-end">35</span>
+                    </div>
+                    <!-- Checked checkbox -->
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked4" checked />
+                      <label class="form-check-label" for="flexCheckChecked4">Pedigree</label>
+                      <span class="badge badge-secondary float-end">89</span>
+                    </div>
+                    <!-- Default checkbox -->
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                      <label class="form-check-label" for="flexCheckDefault">Royal Canin</label>
+                      <span class="badge badge-secondary float-end">30</span>
+                    </div>
+                    <!-- Default checkbox -->
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                      <label class="form-check-label" for="flexCheckDefault">Petican</label>
+                      <span class="badge badge-secondary float-end">30</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- PRECIO -->
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="panelsStayOpen-headingThree">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
+                  Precio
+                </button>
+              </h2>
+              <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
+                <div class="accordion-body">
+                  <!-- ELEMENTO DE RANGO -->
+                  <div class="rango">
+                    <input type="range" class="form-range" id="customRange1">
+                  </div>
+                  <div class="row mb-3">
+                    <div class="col-6">
+                      <p class="mb-0">
+                        Min
+                      </p>
+                      <div class="form-outline">
+                        <input type="number" id="typeNumber" class="form-control" />
+                        <label class="form-label" for="typeNumber">$0</label>
+                      </div>
+                    </div>
+                    <div class="col-6">
+                      <p class="mb-0">
+                        Max
+                      </p>
+                      <div class="form-outline">
+                        <input type="number" id="typeNumber" class="form-control" />
+                        <label class="form-label" for="typeNumber">$1.000.000</label>
+                      </div>
+                    </div>
+                  </div>
+                  <button type="button" class="btn btn-white w-100 border border-secondary">Aplicar</button>
+                  
+                </div>
+              </div>
+            </div>
+
+            <!-- TALLA -->
+
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="panelsStayOpen-headingFour">
+                <button 
+                        class="accordion-button collapsed text-dark bg-light" 
+                        type="button"
+                        data-bs-toggle="collapse" 
+                        data-bs-target="#panelsStayOpen-collapseFour" 
+                        aria-expanded="false" 
+                        aria-controls="panelsStayOpen-collapseFour">
+                  Talla
+                </button>
+              </h2>
+              <div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingFour">
+                <div class="accordion-body">
+                  <input type="radio" class="btn-check border justify-content-center" name="options" id="option1" autocomplete="off" checked>
+                  <label class="btn btn-white mb-1 px-1 "style="width: 60px" for="option1">XS</label>
+
+                  <input type="radio" class="btn-check border justify-content-center" name="options" id="option2" autocomplete="off" checked>
+                  <label class="btn btn-white mb-1 px-1"style="width: 60px" for="option2">SM</label>
+
+                  <input type="radio" class="btn-check border justify-content-center" name="options" id="option3" autocomplete="off" checked>
+                  <label class="btn btn-white mb-1 px-1"style="width: 60px" for="option3">LG</label>
+
+                  <input type="radio" class="btn-check border justify-content-center" name="options" id="option4" autocomplete="off" checked>
+                  <label class="btn btn-white mb-1 px-1"style="width: 60px" for="option4">XL</label>
+                </div>
+              </div>
+            </div>
+            
+            <!-- VALORACION ESTRELLAS -->
+
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="panelsStayOpen-headingFive">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFive" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+                  Valoración
+                </button>
+              </h2>
+              <div id="panelsStayOpen-collapseFive" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingFive">
+                <div class="accordion-body">
+                  <!-- 5 estrellas -->
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                    <label class="form-check-label" for="flexCheckChecked">
+                      <i class="fas fa-star text-warning"></i><i class="fas fa-star text-warning"></i><i class="fas fa-star text-warning"></i><i class="fas fa-star text-warning"></i><i class="fas fa-star text-warning"></i>
+                    </label>
+                  </div>
+                  <!-- 4 estrellas -->
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                    <label class="form-check-label" for="flexCheckChecked">
+                      <i class="fas fa-star text-warning"></i><i class="fas fa-star text-warning"></i><i class="fas fa-star text-warning"></i><i class="fas fa-star text-warning"></i><i class="fas fa-star text-secondary"></i>
+                    </label>
+                  </div>
+                  <!-- 3 estrellas -->
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                    <label class="form-check-label" for="flexCheckChecked">
+                      <i class="fas fa-star text-warning"></i><i class="fas fa-star text-warning"></i><i class="fas fa-star text-warning"></i><i class="fas fa-star text-secondary"></i><i class="fas fa-star text-secondary"></i>
+                    </label>
+                  </div>
+                  <!-- 2 estrellas -->
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                    <label class="form-check-label" for="flexCheckChecked">
+                      <i class="fas fa-star text-warning"></i><i class="fas fa-star text-warning"></i><i class="fas fa-star text-secondary"></i><i class="fas fa-star text-secondary"></i><i class="fas fa-star text-secondary"></i>
+                    </label>
+                  </div>
+                  <!-- 1 estrellas -->
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                    <label class="form-check-label" for="flexCheckChecked">
+                      <i class="fas fa-star text-warning"></i><i class="fas fa-star text-secondary"></i><i class="fas fa-star text-secondary"></i><i class="fas fa-star text-secondary"></i><i class="fas fa-star text-secondary"></i>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- sidebar -->
+      <!-- content -->
+      <div class="col-lg-9">
+        <header class="d-sm-flex align-items-center border-bottom mb-4 pb-3">
+          <strong class="d-block py-2">32 Items found </strong>
+          <div class="ms-auto">
+            <select class="form-select d-inline-block w-auto border pt-1">
+              <option value="0">Lo mejor</option>
+              <option value="1">Recomendado</option>
+              <option value="2">Similares</option>
+              <option value="3">Aleatorio</option>
+            </select>
+            <div class="btn-group shadow-0 border">
+              <a href="#" class="btn btn-light" title="List view">
+                <i class="fa fa-bars fa-lg"></i>
+              </a>
+              <a href="{% url 'productos' %}" class="btn btn-light active" title="Grid view">
+                <i class="fa fa-th fa-lg"></i>
+              </a>
+            </div>
+          </div>
+        </header>
+
+        <div class="row">
+          {% load humanize %}
+          {% for producto in page_obj %}
+            <div class="col-lg-4 col-md-6 col-sm-6 d-flex">
+              <div class="card w-100 my-2 shadow-2-strong">
+                {% if producto.imagen %}
+                    <div class="card-img-top">
+                        <img src="{{ producto.imagen.url }}" style=" height: 330px; width: 300px;">
+                    </div>
+                {% else %}
+                    <div class="card-img-top">
+                        <p style="color: red;">No tiene imagen asociada</p>
+                    </div>
+                {% endif %}
+                <div class="card-body d-flex flex-column" >
+                    <div class="d-flex flex-row mb-2">
+                      <h3 class="mb-1 me-1" style="color: #9C27B0; font-size: 1em;">{{ producto.marca | title }}</h5>
+                    </div>
+                    <div class="d-flex flex-row">
+                        <h5 class="mb-1 me-1">{{ producto.nombre }}</h5>
+                    </div>
+                    <div class="d-flex flex-row">
+                        <h5 class="mb-1 me-1">${{ producto.precio | intcomma }}</h5>&nbsp;
+                        <span class="text-danger"><s>${{ producto.precio| intcomma }}</s></span>
+                    </div>
+                    <p class="card-text">{{ producto.descripcion }}</p>
+                    
+                    <div class="card-footer d-flex align-items-between text-center justify-content-center pt-3 px-3 pb-0 mt-auto">
+                      {% if user.is_authenticated %}
+                      <a href="{% url 'carrito' %}" class="btn btn-primary me-auto"  >Agregar al carro</a>
+                      <a href="#!" class="btn btn-light icon-hover px-3 pt-2" id="meGusta" data-id="{{ producto.id }}" onclick="BotonMeGusta(this)"><i class="fas fa-heart fa-lg text-secondary" style="width: 22px;"></i></a>
+                      {% else %}
+                      <a href="{% url 'login' %}" class="btn btn-primary me-auto"  >Agregar al carro</a>
+                      <a href="#!" class="btn btn-light icon-hover px-3 pt-2" id="meGusta" data-id="{{ producto.id }}" onclick="BotonMeGusta(this)"><i class="fas fa-heart fa-lg text-secondary" style="width: 22px;"></i></a>
+                      {% endif %}
+                    </div>
+                    <div class="card-footer d-flex align-items-end pt-1 px-10 pb-0 mt-auto">
+                      <a href="{% url 'detalle' %}" class="btn btn-outline-primary w-100">Ver detalle</a>
+                    </div>
+                </div>
+              </div>
+            </div>
+        {% endfor %}
+
+
+        </div>
+
+        <hr />
+        <!-- Navegación de la paginación -->
+        <nav aria-label="Navegación de la paginación">
+          <ul class="pagination justify-content-center">
+              {% if page_obj.has_previous %}
+                  <li class="page-item">
+                      <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Anterior</a>
+                  </li>
+              {% endif %}
+              
+              {% for num in page_obj.paginator.page_range %}
+                  {% if num == page_obj.number %}
+                      <li class="page-item active" aria-current="page">
+                          <span class="page-link">{{ num }}</span>
+                      </li>
+                  {% else %}
+                      <li class="page-item">
+                          <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                      </li>
+                  {% endif %}
+              {% endfor %}
+              
+              {% if page_obj.has_next %}
+                  <li class="page-item">
+                      <a class="page-link" href="?page={{ page_obj.next_page_number }}">Siguiente</a>
+                  </li>
+              {% endif %}
+          </ul>
+    
+      </div>
+    </div>
+  </div>            
+</section>
+<!-- sidebar + content -->
+        
+
+
+    <!-- ==============             SCRIPT PAGINA LOADER   =============== -->
+    <!-- GLIDER JS - CAROUSEL -->
+    <script src="https://cdn.jsdelivr.net/npm/glider-js@1.7.8/glider.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fontawesome@5.6.3/index.min.js"></script>
+    
+    
+    
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="{% static './js/meGusta.js' %}"></script>
+    <!-- ================================================================= -->
+    <!-- LLAMAR JS LOADER Y FUNCIONALIDAD DE RECARGA -->
+    <!-- ================================================================= -->
+    <script src="{% static './js/loader.js' %}"></script>
+    <script>
+      // Código JavaScript para quitar la clase "loading" y agregar la clase "loaded" después de una demora
+      window.addEventListener("load", function() {
+        setTimeout(function() {
+          document.body.classList.remove("loading");
+          document.body.classList.add("loaded");
+        }, 1000); // Ajusta el valor de la demora según sea necesario (en milisegundos)
+      });
+    </script>
+
+    
+
+
+  </body>
+  <!-- Footer -->
+  <footer class="btn-dark bg-dark  text-center text-lg-start text-muted mt-3">
+    <!-- Section: Links  -->
+    <section>
+      <div class="container text-center text-md-start pt-4 pb-4">
+        <!-- Grid row -->
+        <div class="row mt-3">
+          <!-- Grid column -->
+          <div class="col-12 col-lg-3 col-sm-12 mb-2 text-center">
+            <!-- Content -->
+            <a href="{% url 'index' %}" target="_blank" class="text-white h2">
+              <img class="mb-3" src="{% static './img/logo/Nuevo_logo/LogoAccent.png' %}" width="64px" alt="">
+            </a>
+            <p class="mt-1 text-white">
+              © 2023 Copyright - Derechos reservados: Ulises Morales González
+            </p>
+          </div>
+          <!-- Grid column -->
+
+          <!-- Grid column -->
+          <div class="col-6 col-sm-4 col-lg-2"> 
+            <!-- Links -->
+            <h6 class="text-uppercase text-white fw-bold mb-2">
+              Tienda
+            </h6>
+            <ul class="list-unstyled mb-4">
+              <li><a class="text-white-50" target="_blank" href="https://github.com/ulMorales?tab=repositories">Inicio</a></li>
+              <li><a class="text-white-50" target="_blank" href="https://github.com/ulMorales?tab=repositories">Productos</a></li>
+              <li><a class="text-white-50" target="_blank" href="https://github.com/ulMorales?tab=repositories">Nosotros</a></li>
+              <li><a class="text-white-50" target="_blank" href="https://github.com/ulMorales?tab=repositories">Blogs</a></li>
+            </ul>
+          </div>
+          <!-- Grid column -->
+
+          <!-- Grid column -->
+          <div class="col-6 col-sm-4 col-lg-2">
+            <!-- Links -->
+            <h6 class="text-uppercase text-white fw-bold mb-2">
+              Información
+            </h6>
+            <ul class="list-unstyled mb-4">
+              <li><a class="text-white-50" target="_blank" href="https://github.com/ulMorales?tab=repositories">Ayuda</a></li>
+              <li><a class="text-white-50" target="_blank" href="https://github.com/ulMorales?tab=repositories">Reembolso</a></li>
+              <li><a class="text-white-50" target="_blank" href="https://github.com/ulMorales?tab=repositories">Informaciones</a></li>
+              <li><a class="text-white-50" target="_blank" href="https://github.com/ulMorales?tab=repositories">Contacto</a></li>
+            </ul>
+          </div>
+          <!-- Grid column -->
+
+          <!-- Grid column -->
+          <div class="col-6 col-sm-4 col-lg-2">
+            <!-- Links -->
+            <h6 class="text-uppercase text-white fw-bold mb-2">
+              Soporte tecnico
+            </h6>
+            <ul class="list-unstyled mb-4">
+              <li><a class="text-white-50" href="https://github.com/ulMorales?tab=repositories" target="_blank">Centro de ayuda</a></li>
+              <li><a class="text-white-50" href="https://github.com/ulMorales?tab=repositories" target="_blank">Documentos</a></li>
+              <li><a class="text-white-50" href="https://github.com/ulMorales?tab=repositories" target="_blank">Restaurar cuenta</a></li>
+              <li><a class="text-white-50" href="https://github.com/ulMorales?tab=repositories" target="_blank">Mis ordenes</a></li>
+            </ul>
+          </div>
+          <!-- Grid column -->
+
+          <!-- Grid column -->
+          <div class="col-12 col-sm-12 col-lg-3">
+            <!-- Links -->
+            <h6 class="text-uppercase text-white fw-bold mb-2">Novedades</h6>
+            <p class="text-white">Mantente al tanto de las ultimas novedades sobre nuestros productos y ofertas.</p>
+            <div class="input-group mb-3">
+              <!-- <input type="email" class="form-control border" placeholder="Correo" aria-label="Email" aria-describedby="button-addon2" />
+              <button class="btn btn-light border shadow-0" type="button" id="button-addon2" data-mdb-ripple-color="dark">
+                Enviar
+              </button> -->
+            </div>
+          </div>
+          <!-- Grid column -->
+        </div>
+        <!-- Grid row -->
+      </div>
+    </section>
+    <!-- Section: Links  -->
+
+    <div class="footer-iconos">
+      <div class="container">
+        <div class="d-flex justify-content-between py-4 border-top">
+          <!--- payment --->
+          <div>
+            <i class="fab fa-lg fa-cc-visa text-white"></i>
+            <i class="fab fa-lg fa-cc-amex text-white"></i>
+            <i class="fab fa-lg fa-cc-mastercard text-white"></i>
+            <i class="fab fa-lg fa-cc-paypal text-white"></i>
+
+            
+          </div>
+          <!--- payment --->
+          <div class="social">
+            <a href="https://github.com/ulMorales?tab=repositories" target="_blank" class="social__enlace"><i class="fa-brands fa-facebook"></i></a>
+            <a href="https://github.com/ulMorales?tab=repositories" target="_blank" class="social__enlace"><i class="fa-brands fa-instagram"></i></a>
+            <a href="https://github.com/ulMorales?tab=repositories" target="_blank" class="social__enlace"><i class="fa-brands fa-github"></i></a>
+            <a href="https://github.com/ulMorales?tab=repositories" target="_blank" class="social__enlace"><i class="fa-brands fa-twitter"></i></a>
+            
+          </div>
+
+          <!--- language selector --->
+          <div class="dropdown dropup">
+            <a class="dropdown-toggle text-white" href="#" id="Dropdown" role="button" data-mdb-toggle="dropdown" aria-expanded="false"> <i class="flag-spain flag m-0 me-1"></i>Español </a>
+
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="Dropdown">
+              <li>
+                <a class="dropdown-item" href="#"><i class="flag-spain flag"></i>Español<i class="fa fa-check text-success ms-2"></i></a>
+              </li>
+              <li><hr class="dropdown-divider" /></li>
+              <li>
+                <a class="dropdown-item" href="#"><i class="flag-united-kingdom flag"></i>English</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="#"><i class="flag-poland flag"></i>Polski</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="#"><i class="flag-china flag"></i>中文</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="#"><i class="flag-japan flag"></i>日本語</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="#"><i class="flag-germany flag"></i>Deutsch</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="#"><i class="flag-france flag"></i>Français</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="#"><i class="flag-russia flag"></i>Русский</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="#"><i class="flag-portugal flag"></i>Português</a>
+              </li>
+            </ul>
+          </div>
+          <!--- language selector --->
+        </div>
+      </div>
+    </div>
+  </footer>
+  <!-- Footer -->
+</html>

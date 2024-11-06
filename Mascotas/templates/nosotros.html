@@ -1,0 +1,923 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    {% load static %}
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="shortcut icon" href="{% static 'img/logo/Nuevo_logo/LogoAccent.png' %}">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+  
+    <!-- LINKS MAPA - mapbox -->
+    
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.5.1/mapbox-gl.css" rel="stylesheet" />
+    
+    <link href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.0/mapbox-gl-directions.css" rel="stylesheet" />
+
+    <!-- Font Awesome -->
+    <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    
+    rel="stylesheet"/>
+    <!-- Google Fonts -->
+    <link
+    href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+    rel="stylesheet"/>
+
+     <!-- MDB -->
+     <link
+     href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.css"
+     rel="stylesheet"/>
+     <!-- JQUERY -->
+     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.slim.min.js"></script>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <!-- CDN MOMENT -->
+     <!-- Enlace al CDN de Moment.js -->
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+
+    <!-- CSS PATITAS -->
+    <link rel="stylesheet" href="{% static 'css/nosotros.css' %}">
+    <title>Sobre nosotros</title>
+  </head>
+  <body class="loading">
+    <!-- ================================================================= -->
+    <!-- ==============             CARGA DE PAGINA        =============== -->
+    <!-- ================================================================= -->
+    <div id="loader-wrapper">
+
+        <div id="loader"></div>
+  
+        <div class="loader-section section-left"></div>
+        <div class="loader-section section-right"></div>
+  
+      </div>
+      <!-- -------------------------------------------------------------------------- -->
+  
+      <!-- ================================================================= -->
+    <!-- ==============             NAV-BAR                =============== -->
+    <!-- ================================================================= -->
+    <nav class="navbar bg-dark navbar-expand-lg">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'index' %}">
+          <img src="{% static 'img/logo/Nuevo_logo/LogoAccent.png' %}" alt="Logo-Accent-Patitas">
+          <span class="text-logo">Patitas</span> 
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="{% url 'index' %}">Inicio</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'productos' %}">Productos</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="https://www.santuarioigualdad.cl/">Fundación</a>
+            </li>
+          </ul>
+          <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="{% url 'carrito' %}">
+                <i class="fa-solid fa-cart-shopping" style="color: #ffffff;"></i>
+                <span>Carrito</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="{% url 'login' %}">
+                
+                <i class="fa-regular fa-circle-user" style="color: #ffffff;"></i>
+                <span>Ingresar</span>
+              </a>
+            </li>
+            
+          </ul>
+
+        </div>
+      </div>
+    </nav>
+    <!-------------------- FIN NAVBAR ------------------------------------->
+      <!-- OFFCANVAS CONTENIDO -->
+
+      <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasCart" aria-labelledby="offcanvasCartLabel">
+        <div class="offcanvas-header">
+          <h5 id="offcanvasCartLabel">Carrito de Compras</h5>
+          <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body d-flex flex-column justify-content-between">
+          <!-- Contenido del carrito de compras -->
+          <div class="d-flex justify-content-center">
+            <button type="button" class="btn btn-success" id="pagarBtn">Pagar productos</button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- ================================================================= -->
+      <!-- ==============             BANNER TOP PARALLAx    =============== -->
+      <!-- ================================================================= -->
+      <section class="parallax">
+        <div class="container">
+          <div class="row">
+            <div class="parallax-text col-sm-12 col-md-12 col-lg-12 ">
+              <!-- <h1>SOBRE NOSOTROS</h1> -->
+            </div>
+          </div>
+        </div>
+        
+      </section>
+    <!-- -------------------------------------------------------------------------- -->
+
+    <!--=============  NOSOTROS  =================-->
+    <section id="seccion5" class="seccion5 altura__a-b">
+      <div class="container">
+          <div class="row mb-5 ">
+              <div class="col-md-12 text-center ">
+                  <div class="heading wow fadeInUp" data-wow-delay="0.3s">
+                      <!-- <h1>TITULO 5</h1> -->
+                      <div class="bord-bot"></div>
+                  </div>
+              </div>
+          </div>
+          <div class="row">
+              <div class="col-md-4 my-auto">
+                  <div class="body-cont mb-5 wow fadeInUp" data-wow-delay="0.6s">
+                      <h1>PATITAS </h1>
+                      <div class="bord-bottom"></div>
+                      <br>
+                      <h2 class="lead"><strong>¿Quiénes somos?</strong></h2>  
+                      <p class="text-break" scale="70%">
+                      Somos un grupo de amig@s que se conoció a través de 
+                      las redes sociales TODOS con la misma idea de AYUDAR A "patitas".
+                      <br><br>
+                      La idea inició con venta de productos para mascotas, lo anterior sin fines de lucro.
+                      En el 2020 comenzamos vendiendo pequeños insumos como bandanas, correas e identificaciones para mascotas.
+                      Nuestra marca ha dado un gran giro, debido a que crecimos sin darnos cuenta.
+                      <br><br>
+                      Hoy te invitamos a conocernos y hacerte partícipe de esta gran historia, siendo un colaborador 
+                      de aquellas patitas que aún necesitan de una mano Humana.
+                      <br>
+                      Estamos orgullosos de ya haber podido ayudar a más de 500 animalitos que estaban sufriendo, 
+                      ya sea por maltrato animal, como por abandono.
+                      <br><br>
+                      Sé parte de nuestra historia y conviértete en un Colaborador de Patitas! 
+                      </p>
+                      <a href="#!" class="img-fluid js-scroll-trigger"><button class="btn btn-general btn-white"><strong> ¡Bienvenid@s a Patitas!</strong> </button></a>
+                  </div>
+              </div>
+              <div class="col-md-8 m-auto text-center">
+                  <div class="body-img-1 wow fadeInUp" data-wow-delay="0.9s">
+                    <img src="{% static 'img/nosotros/atendente_perro-transformed.jpeg' %}" class="card-img-top" alt="...">
+                  </div>
+              </div>
+          </div> 
+      </div>
+  </section> 
+
+<!-- -------------------------------------------------------------------------- -->
+
+  <!-- ======= Vendedores Section ======= -->
+  <section id="Chef" class="chef section-bg altura__a-b">
+    <div class="container" data-aos="fade-up">
+
+      <div class="section-header text-center">
+        <h2>Colaboradores</h2>
+        <p>Nuestro  <span>equipo de</span> Vendedores</p>
+      </div>
+
+      <div class="row gy-4">
+
+        <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
+          <div class="chef-member">
+            <div class="member-img">
+              <img src="{% static 'img/nosotros/salesperson/vendedora3.png' %}" class="img-fluid" alt="">
+              <div class="social">
+                <a href=""><i class="bi bi-twitter"></i></a>
+                <a href=""><i class="bi bi-facebook"></i></a>
+                <a href=""><i class="bi bi-instagram"></i></a>
+                <a href=""><i class="bi bi-linkedin"></i></a>
+              </div>
+            </div>
+            <div class="member-info">
+              <h4>Walter White</h4>
+              <span>Master Chef</span>
+              <p>Velit aut quia fugit et et. Dolorum ea voluptate vel tempore tenetur ipsa quae aut. Ipsum exercitationem iure minima enim corporis et voluptate.</p>
+            </div>
+          </div>
+        </div><!-- End Vendedores Member -->
+
+        <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200">
+          <div class="chef-member">
+            <div class="member-img">
+              <img src="{% static 'img/nosotros/salesperson/vendedora1.png' %}" class="img-fluid" alt="">
+              <div class="social">
+                <a href=""><i class="bi bi-twitter"></i></a>
+                <a href=""><i class="bi bi-facebook"></i></a>
+                <a href=""><i class="bi bi-instagram"></i></a>
+                <a href=""><i class="bi bi-linkedin"></i></a>
+              </div>
+            </div>
+            <div class="member-info">
+              <h4>Sarah Jhonson</h4>
+              <span>Patissier</span>
+              <p>Quo esse repellendus quia id. Est eum et accusantium pariatur fugit nihil minima suscipit corporis. Voluptate sed quas reiciendis animi neque sapiente.</p>
+            </div>
+          </div>
+        </div><!-- End Chefs Member -->
+
+        <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="300">
+          <div class="chef-member">
+            <div class="member-img">
+              <img src="{% static 'img/nosotros/salesperson/vendedora2.png' %}" class="img-fluid" alt="">
+              <div class="social">
+                <a href=""><i class="bi bi-twitter"></i></a>
+                <a href=""><i class="bi bi-facebook"></i></a>
+                <a href=""><i class="bi bi-instagram"></i></a>
+                <a href=""><i class="bi bi-linkedin"></i></a>
+              </div>
+            </div>
+            <div class="member-info">
+              <h4>Jazmín Anderson</h4>
+              <span>Cook</span>
+              <p>Vero omnis enim consequatur. Voluptas consectetur unde qui molestiae deserunt. Voluptates enim aut architecto porro aspernatur molestiae modi.</p>
+            </div>
+          </div>
+        </div><!-- End Chefs Member -->
+
+      </div>
+
+    </div>
+  </section><!-- End Chefs Section -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- ----------------------------------------------------------------------------- -->
+ <!-- Sección de Misión -->
+ <section id="mision" class="py-5 altura__a-b">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="mission-vision">
+          <img src="{% static 'img/nosotros/mision_vision/mundo_mejor.png' %}" alt="Misión" class="img-fluid">
+          <div class="overlay"></div>
+          <div class="text-container">
+            <h2 class="mb-4">Misión</h2>
+            <p class="lead">Nuestra misión es proporcionar productos de alta calidad para mascotas mientras contribuimos al bienestar animal a través de donaciones mensuales a una fundación sin fines de lucro. Queremos hacer del mundo un lugar mejor para nuestros amigos peludos.</p>
+          </div>
+          <h3 class="image-title">Misión</h3>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="mission-vision">
+          <svg class="d-none">
+            <defs>
+              <clipPath id="heartClip" clipPathUnits="objectBoundingBox">
+                <path d="M0.5,0.163c-0.316-0.607-1-0.607-1.316,0c-0.254,0.49-0.996,1.293-2.36,1.858C-0.409,2.325,0,3.076,0.5,3.743
+                c0.5-0.667,0.909-1.418,1.176-2.722C1.496,1.457,1.746,0.653,2,0.163C1.684-0.444,1-0.444,0.684,0.163
+                c0.246,0.491,0.496,1.295,0.764,2.578C1.803,2.201,2,2.915,2,3.742C2,3.915,2,4,2,4s0-0.085,0-0.258
+                c0-0.828-0.197-1.541-0.448-2.001C1.504,1.458,1.254,0.654,1,0.163C0.684-0.444,0-0.444,0.684,0.163
+                C0.93,0.654,1.18,1.458,1.448,2.742C1.705,1.438,2.114,0.687,2.614,0.02c-1.364-0.565-2.107-1.368-2.36-1.858
+                C0.5-0.444,0.184-0.444,0.5,0.163z" />
+              </clipPath>
+            </defs>
+          </svg>
+          <img src="{% static 'img/nosotros/mision_vision/retro-g37fade7ad_1280.png' %}" alt="Visión" class="img-fluid vision-image">
+          <div class="overlay"></div>
+          <div class="text-container">
+            <h2 class="mb-4">Visión</h2>
+            <p class="lead">Nuestra visión es convertirnos en la tienda en línea número uno para productos de mascotas, reconocidos por nuestro compromiso con la calidad, el servicio excepcional y nuestro impacto positivo en la comunidad animal. Queremos inspirar a otros a unirse a nuestra causa.</p>
+          </div>
+          <h3 class="image-title">Visión</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+    <!-- ================================================================= -->
+    <!-- ==============             RECOMENDACIONES        =============== -->
+    <!-- ================================================================= -->
+
+    <section class="altura__a-b section-recomenda">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 py-4">
+            <div class="tit__card__atendent text-center">
+              <h2>Recomendaciones</h2>
+              <h4>¡Cuida de tu peludito!</h4>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-8 col-md-6 col-sm-12 py-4">
+            <!-- CARD IMAGEN más texto -->
+            <div class="card mb-4">
+              <img src="{% static 'img/nosotros/1603379461_Responsabilidad-del-cuidador-de-perros-lo-que-establece-la-ley.jpg' %}" alt="" class="card-img-top img-fluid">
+              <div class="card-body">
+                <h5 class="card-title">Beneficios de sacarlos a diario</h5>
+                <p class="card-text">Cuando saques a pasear a tu peludito, recuerda utilizar una correa resistente y un 
+                  collar cómodo. Procura que el paseo sea divertido y seguro para ambos. ¡Disfruten de cada momento juntos 
+                  y no olvides llevar agua y bolsas para recoger sus necesidades!</p>
+                <p>Salir a pasear diariamente con nuestras mascotas no solo es una actividad divertida, sino que también 
+                  conlleva una serie de beneficios tanto para ellos como para nosotros. Los paseos regulares ayudan a 
+                  mantener a nuestras mascotas físicamente activas, lo cual es fundamental para su salud y bienestar general. 
+                  Además, el ejercicio diario contribuye a controlar su peso, fortalecer sus músculos y articulaciones, y 
+                  mejorar su sistema cardiovascular. Al salir al aire libre, nuestras mascotas también tienen la oportunidad 
+                  de explorar y estimular sus sentidos, lo que enriquece su entorno y promueve su bienestar mental. Los 
+                  paseos también fomentan la socialización, ya que nuestras mascotas tienen la oportunidad de interactuar 
+                  con otros perros y personas, fortaleciendo sus habilidades sociales y su confianza. Por último, los paseos
+                   son momentos especiales de conexión y vínculo con nuestras mascotas, fortaleciendo nuestra relación y 
+                   brindándonos momentos de alegría y diversión juntos. En resumen, sacar a pasear a diario a nuestras mascotas
+                    es beneficioso tanto para su salud física y mental, como para fortalecer nuestra relación y crear recuerdos
+                     inolvidables.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 col-sm-12 py-4">
+            <!-- CARD HORIZONTALES -->
+            <div class="card mb-3">
+              <div class="row g-0">
+                <div class="col-md-4">
+                  <img src="{% static 'img/nosotros/informativa/numero_1.png' %}" class="card-img img-fluid" alt="Perro ladra">
+                </div>
+                <div class="col-md-8">
+                  <div class="card-body">
+                    <h5 class="card-title">Paseo diario</h5>
+                    <p class="card-text">Asegúrate de sacar a tu peludito a pasear todos los días. El ejercicio regular es importante para su salud y bienestar. Busca lugares seguros y libres de tráfico donde pueda correr y jugar sin preocupaciones.</p>
+                    <p class="card-text"><small class="text-muted">Actualizado hace 3 minutos</small></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card mb-3">
+              <div class="row g-0">
+                <div class="col-md-4">
+                  <img src="{% static 'img/nosotros/informativa/numero_2.png' %}" class="card-img img-fluid" alt="Perro ladra">
+                </div>
+                <div class="col-md-8">
+                  <div class="card-body">
+                    <h5 class="card-title">Explorar el entorno</h5>
+                    <p class="card-text">Permite que tu peludito explore su entorno durante el paseo. Deja que huela y descubra nuevos olores. Esto estimula su mente y le proporciona enriquecimiento mental. Asegúrate de mantenerlo seguro y bajo control en todo momento.</p>
+                    <p class="card-text"><small class="text-muted">Actualizado hace 3 minutos</small></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card mb-3">
+              <div class="row g-0">
+                <div class="col-md-4">
+                  <img src="{% static 'img/nosotros/informativa/numero_3.png' %}" class="card-img img-fluid" alt="Perro ladra">
+                </div>
+                <div class="col-md-8">
+                  <div class="card-body">
+                    <h5 class="card-title">Socialización</h5>
+                    <p class="card-text">Los paseos son una excelente oportunidad para que tu peludito se socialice con otros perros y personas. Permítele interactuar de manera amigable y supervisada. Esto ayudará a fortalecer sus habilidades sociales y promoverá un comportamiento positivo.</p>
+                    <p class="card-text"><small class="text-muted">Actualizado hace 3 minutos</small></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>  
+    <!-- -------------------------------------------------------------------------- -->
+
+
+    <!-- ================================================================= -->
+    <!-- ==============             Noticias               =============== -->
+    <!-- ================================================================= -->
+    <div class="container mt-4 altura__a-b">
+      <div class="row">
+        <div class="col-md-8">
+          <section>
+            <h2> Sección de noticias</h2>
+            <img src="{% static 'img/nosotros/informativa/noticia_titular.jpg' %}" alt="Titular principal" class="img-fluid mb-4">
+            <p>El estigmatizado primer «celo», y qué cuidados deberías tener con ella para cuando llegue.
+
+              Primero tienes que saber que el celo es el periodo de ovulación en el cual un macho puede montar una hembra para su reproducción; en el caso de las cachorras el primer celo aparece entre los 5 – 12 meses y después, cada 6 meses, con una duración de 21 días desde que empieza el sangrado normalmente. 
+              
+              Es importante que sepas que el celo tiene dos etapas: proestro y estro. En el proestro tu perra muy seguramente cambiará de ánimo y comenzará a sangrar. Físicamente se inflamará un poco y comenzará a lamerse más de lo habitual para limpiarse el sangrado. Muchos dueños optan por comprar calzones para perros en el cual ponen toallas higiénicas para evitar manchas en la casa (ten en cuenta que esta etapa puede durar entre 5 – 10 días).  
+              
+              En la segunda etapa, el estro, es cuando la perra deja de sangrar, pero donde más cuidado deberás tener, pues es el más propenso para que los machos la monten. Esta etapa, a diferencia de lo que muchos piensan, es la más fértil y empezara cuando tu perra permita que la monten y terminara cuando presente signos de agresividad hacia los machos que intenten montarla.  
+              <br>
+              Teniendo en cuenta las etapas del celo y su duración, acá tienes unos consejos que puedes implementar para el cuidado de tu perra.  
+              <br>
+              • Al momento de sacarla para que haga sus necesidades intenta hacerlo en un horario donde no haya muchos perros y sácala siempre con correa.  
+              <br>
+              • Si tienes otros perros en casa debes mantenerlos separados para evitar gestaciones no deseadas o peleas. 
+              <br>
+              • Asegúrate que tu casa tenga puertas y ventanas cerradas, así evitaras que tu perra se escape y que cualquier perro pueda entrar. 
+              <br>
+              • Los calzones de celo ayudarán a evitar a que tu perra manche en tus muebles o lugares no deseados. Sin embargo, acuérdate que se los tienes que quitar para que haga sus necesidades. 
+              <br>
+              • Piensa en la idea de esterilizar a tu perra si no tienes la intención de que tenga cachorros. 
+              <br>
+              • Los inhibidores de celo, como el covinan, no son recomendables, pues podrían desarrollar diferentes patologías en tu peluda. 
+              <br>
+              • Si presenta vómitos o comportamientos inusuales es mejor consultar al veterinario. 
+              <br>
+              No olvides que este periodo es incómodo para tu peluda, así que consiéntela y ten paciencia, ella te lo agradecerá. </p>
+            
+          </section>
+  
+          <section py-5>
+            <h2>Otras noticias</h2>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="card mb-3">
+                  <img src="{% static 'img/nosotros/informativa/guia_viaje_con_peludo.jpg' %}" alt="Noticia 1" width="120px" height="300px" class="card-img-top img-fluid">
+                  <div class="card-body">
+                    <h5 class="card-title">Guía para Viajar con tu Peludo</h5>
+                    <p class="card-text">Llegan las vacaciones y a muchos de nosotros nos encantaría llevar a nuestro peludo a esos sitios maravillosos que estamos planeando visitar, pero entonces llegan las dudas de si es buena idea o no. </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="card mb-3">
+                  <img src="{% static 'img/nosotros/informativa/dar-vitaminas-a-los-perros.jpg' %}" alt="Noticia 2"width="120px" height="300px" class="card-img-top img-fluid">
+                  <div class="card-body">
+                    <h5 class="card-title">LA VITAMINA B EN LOS PELUDITOS  </h5>
+                    <p class="card-text">Las vitaminas son micronutrientes esenciales que necesita tu cuerpo y el de tu peludo, en pequeñas proporciones, para que su metabolismo funcione correctamente. Estas están relacionadas directamente con la salud, ya que se ha demostrado que ciertas enfermedades se presentan por la carencia de vitaminas.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+  
+        <div class="col-md-4">
+          <aside>
+            <h2>Noticias relacionadas</h2>
+            <div class="card mb-3">
+              <img src="{% static 'img/nosotros/informativa/RolFundaciones-thegem-blog-default.jpg' %}"  alt="Avatar" class="card-img-top img-fluid">
+              <div class="card-body">
+                <h5 class="card-title">¿Cuál es la IMPORTANCIA Y el rol de las LAS FUNDACIONES en nuestra sociedad?</h5>
+                <p class="card-text">Una diversa cantidad de fundaciones y refugios para animales, son conformados por héroes  que dedican su vida al rescate de perros y gatos en condición de calle, personas que dan segundas oportunidades a los animales que fueron olvidados por la sociedad.</p>
+                <a href="#" class="btn btn-primary">Leer más</a>
+              </div>
+            </div>
+            <div class="card mb-3">
+              <img src="{% static 'img/nosotros/informativa/benji-thegem-blog-default.jpg' %}" alt="Avatar" class="card-img-top img-fluid">
+              <div class="card-body">
+                <h5 class="card-title">LAS PELÍCULAS MÁS RECOMENDADAS PARA VER CON TU PELUDITO.</h5>
+                <p class="card-text">¿Sabías que tu peludito puede ver TV ? Lo primero es que los perros no ven en blanco y negro,…</p>
+                <a href="#" class="btn btn-primary">Leer más</a>
+              </div>
+            </div>
+            <div class="card mb-3">
+              <img src="{% static 'img/nosotros/informativa/RutinaAlimenticia-thegem-blog-default.jpg' %}" alt="Avatar" class="card-img-top img-fluid">
+              <div class="card-body">
+                <h5 class="card-title">¿Cómo sacar de la rutina alimenticia a tu peludito?</h5>
+                <p class="card-text">La alimentación desempeña un papel importante en la salud de los perros para su crecimiento y desarrollo produciendo a su vez efectos en el sistema inmunológico.</p>
+                <a href="#" class="btn btn-primary">Leer más</a>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+      <section class="seccion__video__noticias">
+        <div class="row mt-4 altura__a-b ">
+          <div class="col-md-8">
+            <h2>Las personas gastan más en sus mascotas que en ellas mismas.</h2><br>
+              <div class="embed-responsive embed-responsive-16by9">
+                <iframe class="embed-responsive-item" width="100%" height="500px" src="https://www.youtube.com/embed/P9eBilftlLs" allowfullscreen></iframe>
+              </div>
+              <div class="row mt-4">
+                <div class="col-md-4">
+                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sed lorem vitae tortor iaculis fringilla. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Suspendisse nec aliquet eros, vitae commodo erat.
+                    Proin posuere sapien sit amet lacinia ullamcorper. Integer pellentesque ligula eu fringilla pellentesque. Fusce tincidunt tortor et tortor interdum, sit amet cursus magna mollis.
+                    Proin posuere sapien sit amet lacinia ullamcorper. Integer pellentesque ligula eu fringilla pellentesque. Fusce tincidunt tortor et tortor interdum, sit amet cursus magna mollis.
+                  </p><BR></BR>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sed lorem vitae tortor iaculis fringilla. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Suspendisse nec aliquet eros, vitae commodo erat.</p>
+                </div>
+                <div class="col-md-4">
+                  <p>Proin posuere sapien sit amet lacinia ullamcorper. Integer pellentesque ligula eu fringilla pellentesque. Fusce tincidunt tortor et tortor interdum, sit amet cursus magna mollis.</p><BR></BR>
+                  <p>Proin posuere sapien sit amet lacinia ullamcorper. Integer pellentesque ligula eu fringilla pellentesque. Fusce tincidunt tortor et tortor interdum, sit amet cursus magna mollis. <br>
+                    Proin posuere sapien sit amet lacinia ullamcorper. Integer pellentesque ligula eu fringilla pellentesque. Fusce tincidunt tortor et tortor interdum, sit amet cursus magna mollis.
+                  </p>
+                </div>
+                <div class="col-md-4">
+                  <p>Proin posuere sapien sit amet lacinia ullamcorper. Integer pellentesque ligula eu fringilla pellentesque. Fusce tincidunt tortor et tortor interdum, sit amet cursus magna mollis.</p><BR></BR>
+                  <p>Proin posuere sapien sit amet lacinia ullamcorper. Integer pellentesque ligula eu fringilla pellentesque. Fusce tincidunt tortor et tortor interdum, sit amet cursus magna mollis. <br>
+                    Proin posuere sapien sit amet lacinia ullamcorper. Integer pellentesque ligula eu fringilla pellentesque. Fusce tincidunt tortor et tortor interdum, sit amet cursus magna mollis.
+                    Proin posuere sapien sit amet lacinia ullamcorper. Integer pellentesque ligula eu fringilla pellentesque. Fusce tincidunt tortor et tortor interdum, sit amet cursus magna mollis. </p>
+                </div>
+              </div>
+              
+          </div>        
+    
+          <div class="col-md-4 ">
+            <aside>
+              <h2>Videos similares</h2> <br>
+              <div class="card mb-3">
+                <div class="embed-responsive embed-responsive-16by9 text-center">
+                  <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/PaiQQ3ZvE1k" allowfullscreen></iframe>
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title">La historia de BROWNIE, el perro del presidente Gabriel Boric.</h5>
+                  <p class="card-text">En este espacio conoceremos las más divertidas anécdotas de estos pequeños animales, así como el camino de sus dueños hacia la concientización sobre la tenencia responsable.</p>
+                </div>
+              </div>
+              
+              <div class="card mb-3">
+                <div class="embed-responsive embed-responsive-16by9 text-center">
+                  <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/YsEmwsFqkGg" allowfullscreen></iframe>
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title">Crean mascotas de peluche para dueños en duelo.</h5>
+                  <p class="card-text">En Filipinas, el juguetero David Tan crea réplicas de mascotas fallecidas que ayudan a los dueños a superar la pérdida y el duelo. La idea se originó tras el fallecimiento de su golden retriever, en 2019.</p>
+                </div>
+              </div>          
+              
+            </aside>
+          </div>
+        </div>
+
+
+      </section>
+      
+    </div>
+    
+    
+    
+    
+    
+    
+
+    <!-- -------------------------------------------------------------------------- -->
+
+    <!--=============  CARRUSEL  =================-->
+    <section class="carrusel altura__a-b">
+        <div class="container-fluid">
+          <div id="carouselExampleIndicators" class="carousel slide altura__a-b" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner">
+              <div class="carousel-item active" data-bs-interval="2000">
+                <img src="{% static 'img/nosotros/rescate-transformed.jpeg' %}" class="d-block w-100 img-fluid" alt="oferta-1">
+              </div>
+              <div class="carousel-item" data-bs-interval="2000">
+                <img src="{% static 'img/nosotros/rescate2-transformed.jpeg' %}" class="d-block w-100 img-fluid" alt="oferta-2">
+              </div>
+              <div class="carousel-item" data-bs-interval="2000">
+                <img src="{% static 'img/nosotros/rescate3-transformed.jpeg' %}" class="d-block w-100 img-fluid" alt="oferta-3">
+              </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+        </div>
+  
+      </section>
+
+    <!-- -------------------------------------------------------------------------- -->
+    
+    <!-- CONTACTANOS -->
+    <!-- ======= Contact Section ======= -->
+    <section id="contact " class="contact altura__a-b">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-header text-center">
+          <h2>Contactanos</h2>
+          <p>¿Necesitas ayuda? <span>Contactanos</span></p>
+        </div>
+
+        <div class="mb-3">
+          <div id="map"></div>
+        </div><!-- End Google Maps -->
+
+        <div class="row gy-4">
+
+          <div class="col-md-6">
+            <div class="info-item  d-flex align-items-center">
+              <i class="fa__icon fa-solid fa-map-location-dot" style="color: #d317aa;"></i>
+              <div class="dir__text">
+                <h3>Nuestra dirección es:</h3>
+                <p>Av. Esq. Blanca 501, 9251863 Maipú, Región Metropolitana</p>
+              </div>
+            </div>
+          </div><!-- End Info Item -->
+
+          <div class="col-md-6">
+            <div class="info-item d-flex align-items-center">
+              <i class="fa__icon fa-solid fa-envelope" style="color: #d317aa;"></i>
+              <div class="dir__text">
+                <h3>Nuestro Email</h3>
+                <p>contact@patitas.com</p>
+              </div>
+            </div>
+          </div><!-- End Info Item -->
+
+          <div class="col-md-6">
+            <div class="info-item  d-flex align-items-center">
+              <i class=" fa__icon fa-solid fa-mobile-screen-button" style="color: #d317aa;"></i>
+              <div class="dir__text">
+                <h3>Llamanos</h3>
+                <p>+1 5589 55488 55</p>
+              </div>
+            </div>
+          </div><!-- End Info Item -->
+
+          <div class="col-md-6">
+            <div class="info-item  d-flex align-items-center">
+              <i class="fa__icon fa-solid fa-clock" style="color: #d317aa;"></i>
+              <div class="dir__text">
+                <h3>Horario de funcionamiento</h3>
+                <div><strong>Lun-Sab:</strong> 11AM - 23PM;
+                  <strong>Domingo:</strong> Cerrado
+                </div>
+              </div>
+            </div>
+          </div><!-- End Info Item -->
+
+        </div>
+
+        <form action="#" method="post" role="form" id="datos" class="php-email-form p-3 p-md-4">
+          <div class="row">
+            <div class="col-xl-6 form-group">
+              <label for="name">Nombre:</label>
+              <input type="text" name="name" class="form-control" id="name" placeholder="Pepito" 
+                minlength="3" maxlength="30" required>
+            </div>
+            <div class="col-xl-6 form-group">
+              <label for="email">Correo electronico: </label>
+              <input type="email" class="form-control" name="email" id="email" placeholder="pepito@gmail.com" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="subject">Asunto:</label>
+            <input type="text" class="form-control" name="subject" id="subject" placeholder="Asunto" required>
+          </div>
+          <div class="form-group">
+            <label for="message">Mensaje:</label>
+            <textarea class="form-control" name="message" id="message" rows="5" placeholder="Contenido del mensaje..." minlength="5" required></textarea>
+          </div>
+          <div class="text-center"><button type="submit" class="btn btn-success" style="background-color: #d317aa;" onclick="mostrarToast()">Enviar</button></div>
+        </form><!--End Contact Form -->
+
+        <!-- TOAST CONFIRMACIÓN DE ENVÍO -->
+        <div class="toast align-items-center text-white bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true" id="toastDiv" style="position: fixed; bottom: 10px; right: 10px; z-index: 1;">
+          <div class="d-flex">
+              <div class="toast-body">
+                  Tu mensaje ha sido enviado exitosamente.
+              </div>
+              <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End Contact Section -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    <!-- ================================================================= -->
+    <!-- ==============             BOTON DE WHATSAP       =============== -->
+    <!-- ================================================================= -->
+    
+    
+    <div class="container-boton d-flex justify-content-center align-items-center">
+        <a id="boton__whatsap" href="https://wa.me/123456123?text=Contactanos%20ante%20cualquier%20duda%20Patitas" target="_blank">
+          <img class="boton-whatsap" src="{% static 'img/iconos/inicio/icono__whatsap.png' %}" alt="boton-whatsap">
+        </a>
+      </div>
+  
+  
+  
+  
+  
+      <!-- -------------------------------------------------------------------------- -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+      
+
+    <!-- GLIDER JS - CAROUSEL -->
+    <script src="https://cdn.jsdelivr.net/npm/glider-js@1.7.8/glider.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fontawesome@5.6.3/index.min.js"></script>
+
+    <!-- JQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.js"></script>
+
+    <script src="{% static './js/nosotros/valida__contact.js' %}"></script>
+
+    <!-- NOSOTROS SCRIPT -->
+    <script src="{% static './js/nosotros/nosotros.js' %}"></script>
+
+    <!-- MAPBOX -->
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.5.1/mapbox-gl.js"></script>
+    <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.0/mapbox-gl-directions.js"></script>
+  
+
+    <!-- MAPA - ubicacion PATITAS -->
+    <script src="{% static './js/nosotros/ubicacion.js' %}"></script>
+
+    
+    <!-- ================================================================= -->
+    <!-- ==============             SCRIPT PAGINA LOADER   =============== -->
+    <!-- ================================================================= -->
+    <!-- LLAMAR JS LOADER Y FUNCIONALIDAD DE RECARGA -->
+    <script src="{% static './js/loader.js' %}"></script>
+    <script>
+      // Código JavaScript para quitar la clase "loading" y agregar la clase "loaded" después de una demora
+      window.addEventListener("load", function() {
+        setTimeout(function() {
+          document.body.classList.remove("loading");
+          document.body.classList.add("loaded");
+        }, 1000); // Ajusta el valor de la demora según sea necesario (en milisegundos)
+      });
+    </script>
+</body>
+<!-- Footer -->
+<footer class="btn-dark bg-dark  text-center text-lg-start text-muted mt-3">
+  <!-- Section: Links  -->
+  <section>
+    <div class="container text-center text-md-start pt-4 pb-4">
+      <!-- Grid row -->
+      <div class="row mt-3">
+        <!-- Grid column -->
+        <div class="col-12 col-lg-3 col-sm-12 mb-2 text-center">
+          <!-- Content -->
+          <a href="{% url 'index' %}" target="_blank" class="text-white h2">
+            <img class="mb-3" src="{% static 'img/logo/Nuevo_logo/LogoAccent.png' %}" width="64px" alt="">
+          </a>
+          <p class="mt-1 text-white">
+            © 2023 Copyright - Derechos reservados: Ulises Morales González
+          </p>
+        </div>
+        <!-- Grid column -->
+
+        <!-- Grid column -->
+        <div class="col-6 col-sm-4 col-lg-2"> 
+          <!-- Links -->
+          <h6 class="text-uppercase text-white fw-bold mb-2">
+            Tienda
+          </h6>
+          <ul class="list-unstyled mb-4">
+            <li><a class="text-white-50" target="_blank" href="https://github.com/ulMorales?tab=repositories">Inicio</a></li>
+            <li><a class="text-white-50" target="_blank" href="https://github.com/ulMorales?tab=repositories">Productos</a></li>
+            <li><a class="text-white-50" target="_blank" href="https://github.com/ulMorales?tab=repositories">Nosotros</a></li>
+            <li><a class="text-white-50" target="_blank" href="https://github.com/ulMorales?tab=repositories">Blogs</a></li>
+          </ul>
+        </div>
+        <!-- Grid column -->
+
+        <!-- Grid column -->
+        <div class="col-6 col-sm-4 col-lg-2">
+          <!-- Links -->
+          <h6 class="text-uppercase text-white fw-bold mb-2">
+            Información
+          </h6>
+          <ul class="list-unstyled mb-4">
+            <li><a class="text-white-50" target="_blank" href="https://github.com/ulMorales?tab=repositories">Ayuda</a></li>
+            <li><a class="text-white-50" target="_blank" href="https://github.com/ulMorales?tab=repositories">Reembolso</a></li>
+            <li><a class="text-white-50" target="_blank" href="https://github.com/ulMorales?tab=repositories">Informaciones</a></li>
+            <li><a class="text-white-50" target="_blank" href="https://github.com/ulMorales?tab=repositories">Contacto</a></li>
+          </ul>
+        </div>
+        <!-- Grid column -->
+
+        <!-- Grid column -->
+        <div class="col-6 col-sm-4 col-lg-2">
+          <!-- Links -->
+          <h6 class="text-uppercase text-white fw-bold mb-2">
+            Soporte tecnico
+          </h6>
+          <ul class="list-unstyled mb-4">
+            <li><a class="text-white-50" href="https://github.com/ulMorales?tab=repositories" target="_blank">Centro de ayuda</a></li>
+            <li><a class="text-white-50" href="https://github.com/ulMorales?tab=repositories" target="_blank">Documentos</a></li>
+            <li><a class="text-white-50" href="https://github.com/ulMorales?tab=repositories" target="_blank">Restaurar cuenta</a></li>
+            <li><a class="text-white-50" href="https://github.com/ulMorales?tab=repositories" target="_blank">Mis ordenes</a></li>
+          </ul>
+        </div>
+        <!-- Grid column -->
+
+        <!-- Grid column -->
+        <div class="col-12 col-sm-12 col-lg-3">
+          <!-- Links -->
+          <h6 class="text-uppercase text-white fw-bold mb-2">Novedades</h6>
+          <p class="text-white">Mantente al tanto de las ultimas novedades sobre nuestros productos y ofertas.</p>
+          <div class="input-group mb-3">
+            <!-- <input type="email" class="form-control border" placeholder="Correo" aria-label="Email" aria-describedby="button-addon2" />
+            <button class="btn btn-light border shadow-0" type="button" id="button-addon2" data-mdb-ripple-color="dark">
+              Enviar
+            </button> -->
+          </div>
+        </div>
+        <!-- Grid column -->
+      </div>
+      <!-- Grid row -->
+    </div>
+  </section>
+  <!-- Section: Links  -->
+
+  <div class="footer-iconos">
+    <div class="container">
+      <div class="d-flex justify-content-between py-4 border-top">
+        <!--- payment --->
+        <div>
+          <i class="fab fa-lg fa-cc-visa text-white"></i>
+          <i class="fab fa-lg fa-cc-amex text-white"></i>
+          <i class="fab fa-lg fa-cc-mastercard text-white"></i>
+          <i class="fab fa-lg fa-cc-paypal text-white"></i>
+
+          
+        </div>
+        <!--- payment --->
+        <div class="social">
+          <a href="https://github.com/ulMorales?tab=repositories" target="_blank" class="social__enlace"><i class="fa-brands fa-facebook"></i></a>
+          <a href="https://github.com/ulMorales?tab=repositories" target="_blank" class="social__enlace"><i class="fa-brands fa-instagram"></i></a>
+          <a href="https://github.com/ulMorales?tab=repositories" target="_blank" class="social__enlace"><i class="fa-brands fa-github"></i></a>
+          <a href="https://github.com/ulMorales?tab=repositories" target="_blank" class="social__enlace"><i class="fa-brands fa-twitter"></i></a>
+          
+        </div>
+
+        <!--- language selector --->
+        <div class="dropdown dropup">
+          <a class="dropdown-toggle text-white" href="#" id="Dropdown" role="button" data-mdb-toggle="dropdown" aria-expanded="false"> <i class="flag-spain flag m-0 me-1"></i>Español </a>
+
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="Dropdown">
+            <li>
+              <a class="dropdown-item" href="#"><i class="flag-spain flag"></i>Español<i class="fa fa-check text-success ms-2"></i></a>
+            </li>
+            <li><hr class="dropdown-divider" /></li>
+            <li>
+              <a class="dropdown-item" href="#"><i class="flag-united-kingdom flag"></i>English</a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="#"><i class="flag-poland flag"></i>Polski</a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="#"><i class="flag-china flag"></i>中文</a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="#"><i class="flag-japan flag"></i>日本語</a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="#"><i class="flag-germany flag"></i>Deutsch</a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="#"><i class="flag-france flag"></i>Français</a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="#"><i class="flag-russia flag"></i>Русский</a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="#"><i class="flag-portugal flag"></i>Português</a>
+            </li>
+          </ul>
+        </div>
+        <!--- language selector --->
+      </div>
+    </div>
+  </div>
+</footer>
+<!-- Footer -->
+</html>

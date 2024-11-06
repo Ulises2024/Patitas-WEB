@@ -1,0 +1,72 @@
+[
+    {
+      "model": "mascotas.producto",
+      "pk": 1,
+      "fields": {
+        "idNumber": "ABC123",
+        "nombre": "Alimento seco para cachorro 15 kg",
+        "url": "https://ejemplo.com/producto1",
+        "descripcion": "Descripción del producto Alimento_seco_para_cachorro_15_kg",
+        "precio": 9.990,
+        "cantidad": 5,
+        "tienda": "Tienda 1",
+        "categoria": "Categoría 1"
+      }
+    },
+    {
+      "model": "mascotas.producto",
+      "pk": 2,
+      "fields": {
+        "idNumber": "DEF456",
+        "nombre": "Producto 2",
+        "url": "https://ejemplo.com/producto2",
+        "descripcion": "Descripción del producto 2",
+        "precio": 19.990,
+        "cantidad": 10,
+        "tienda": "Tienda 2",
+        "categoria": "Categoría 2"
+      }
+    },
+    {
+      "model": "mascotas.producto",
+      "pk": 3,
+      "fields": {
+        "idNumber": "GHI789",
+        "nombre": "Producto 3",
+        "url": "https://ejemplo.com/producto3",
+        "descripcion": "Descripción del producto 3",
+        "precio": 14.990,
+        "cantidad": 3,
+        "tienda": "Tienda 3",
+        "categoria": "Categoría 1"
+      }
+    },
+    {
+      "model": "mascotas.producto",
+      "pk": 4,
+      "fields": {
+        "idNumber": "GHI790",
+        "nombre": "Producto 4",
+        "url": "https://ejemplo.com/producto4",
+        "descripcion": "Descripción del producto 4",
+        "precio": 24.990,
+        "cantidad": 8,
+        "tienda": "Tienda 1",
+        "categoria": "Categoría 2"
+      }
+    },
+    {
+      "model": "mascotas.producto",
+      "pk": 5,
+      "fields": {
+        "idNumber": "GHI791",
+        "nombre": "Producto 5",
+        "url": "https://ejemplo.com/producto5",
+        "descripcion": "Descripción del producto 5",
+        "precio": 11.990,
+        "cantidad": 2,
+        "tienda": "Tienda 2",
+        "categoria": "Categoría 1"
+      }
+    }
+  ]

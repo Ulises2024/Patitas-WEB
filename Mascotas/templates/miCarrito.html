@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="{% static 'img/logo/Nuevo_logo/LogoAccent.png' %}">
+
+
+    <!-- LINKS MAPA - mapbox -->
+    
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.5.1/mapbox-gl.css" rel="stylesheet" />
+    
+    <link href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.0/mapbox-gl-directions.css" rel="stylesheet" />
+
+    <!-- Font Awesome -->
+    <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    
+    rel="stylesheet"/>
+    <!-- Google Fonts -->
+    <link
+    href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+    rel="stylesheet"/>
+
+     <!-- MDB -->
+     <link
+     href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.css"
+     rel="stylesheet"/>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <!-- CDN MOMENT -->
+     <!-- Enlace al CDN de Moment.js -->
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+
+    <!-- CSS PATITAS -->
+    <link rel="stylesheet" href="{% static 'css/miCarrito.css' %}">
+    <title>Carrito de compras</title>
+
+</head>
+<body>
+    <!-- ================================================================= -->
+    <!-- ==============             CARGA DE PAGINA        =============== -->
+    <!-- ================================================================= -->
+    <div id="loader-wrapper">
+        <div id="loader"></div>
+  
+        <div class="loader-section section-left"></div>
+        <div class="loader-section section-right"></div>
+  
+      </div>
+  
+    <!-- ================================================================= -->
+    <!-- ==============             Formulario de login    =============== -->
+    <!-- ================================================================= -->
+
+    <header>
+      <!-- ================================================================= -->
+      <!-- ==============             NAV-BAR                =============== -->
+      <!-- ================================================================= -->
+      <nav class="navbar bg-dark navbar-expand-lg">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="{% url 'index' %}">
+            <img src="{% static 'img/logo/Nuevo_logo/LogoAccent.png' %}" alt="Logo-Accent-Patitas">
+            <span class="text-logo">Patitas</span> 
+          </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+            <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+              
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'nosotros' %}">Nosotros</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'productos' %}">Productos</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="https://www.santuarioigualdad.cl/">Fundación</a>
+              </li>
+              {% if user.is_authenticated %}
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'adminPage' %}">Administrador</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'carrito' %}">Carrito</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/admin/" target="_blank">DATABASE</a>
+              </li>
+              {% endif %}
+            </ul>
+            <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                {% if user.is_authenticated %}
+                <a class="nav-link" aria-current="page" href="{% url 'carrito' %}">
+                  <i class="fa-solid fa-cart-shopping" style="color: #ffffff;"></i>
+                  <span>Carrito</span>
+                </a>
+                {% endif %}
+              </li>
+            </ul>
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                {% if user.is_authenticated %}
+                <div class="btn-group" style="height: 50px;">
+                  <div class="me-2">
+                    <a href="#" class="text-center">
+                      <i class="fas fa-envelope" style="color: #ffffff;"></i>
+                    </a>
+                    <a href="#" class="text-center">
+                      <i class="fa-solid fa-bell text-center " style="color: #ffffff; width: 10px;"></i>
+                    </a>
+                  </div>
+                  <button type="button" class="btn btn-dark dropdown-toggle " data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
+                    <div class="d-flex align-items-center justify-content-center text-center px-4">
+                      <img src="https://mdbcdn.b-cdn.net/img/new/avatars/8.webp" class="rounded-circle mb-3 me-2" style="width: 40px;" alt="Avatar" />
+                      <span class="pb-3">{{ user.username }}</span>
+                    </div>
+                  </button>
+                  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-md-start">
+                    <li>
+                      <a class="dropdown-item" href="#">
+                        <span style="font-size: 0.8em;">Mi perfil</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="{% url 'carrito' %}">
+                        <span style="font-size: 0.8em;">Compras</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="{% url 'logout' %}">
+                        <span style="font-size: 0.8em;">Cerrar sesión</span>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                {% else %}
+                <a class="nav-link" aria-current="page" href="{% url 'login' %}">
+                  <i class="fa-regular fa-circle-user" style="color: #ffffff;">&nbsp; Iniciar sesión</i>
+                </a>
+                {% endif %}
+              </li>
+            </ul>      
+          </div>
+        </div>
+      </nav>
+      <!-------------------- FIN NAVBAR ------------------------------------->
+      
+      <!-- Heading -->
+      <div class="bg-info">
+        <div class="container py-4">
+          <!-- Breadcrumb -->
+          <nav class="d-flex">
+            <h6 class="mb-0">
+              <a href="" class="text-white-50">Inicio</a>
+              <span class="text-white-50 mx-2"> > </span>
+              <a href="" class="text-white"><u>Carrito de compra</u></a>
+            </h6>
+          </nav>
+          <!-- Breadcrumb -->
+        </div>
+      </div>
+      <!-- Heading -->
+    </header>
+      
+      <!-- cart + summary -->
+      <section class="bg-light my-5">
+        <div class="container">
+          <div class="row">
+            <!-- cart -->
+            <div class="col-lg-9">
+              <div class="card border shadow-0">
+                <div class="m-4">
+                  <h4 class="card-title mb-4">Tu carrito de compra</h4>
+                  <div class="border-top pt-4 row gy-3 mb-4">
+                    <div class="col-lg-5">
+                      <div class="me-lg-5">
+                        <div class="d-flex">
+                          <img src="{% static 'img/productos/Bolso_de_transporte.jpg' %}" class="border rounded me-3" style="width: 96px; height: 96px;" />
+                          <div class="">
+                            <a href="#" class="nav-link">Bolso de Bolso de transporte</a>
+                            <p class="text-muted">Lorem ipsum</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-2 col-sm-6 col-6 d-flex flex-row flex-lg-column flex-xl-row text-nowrap">
+                      <div class="">
+                        <text class="h6">$11.560</text> <br />
+                        <small class="text-muted text-nowrap"> $4.600 / per item </small>
+                        <br>
+                      </div>
+                      <div class="col-lg-2 col-sm-6 col-6 ">
+                        <select style="width: 100px;" class="form-select me-4">
+                          <option>1</option>
+                          <option>2</option>
+                          <option>3</option>
+                          <option>4</option>
+                        </select>
+                      </div>
+                      
+                    </div>
+                    
+                    <div class="col-lg col-sm-6 d-flex justify-content-sm-center justify-content-md-start justify-content-lg-center justify-content-xl-end mb-2">
+                      <div class="float-md-end">
+                        <a href="#!" class="btn btn-light border px-2 icon-hover-primary"><i class="fas fa-heart fa-lg px-1 text-secondary"></i></a>
+                        <a href="#" class="btn btn-light border text-danger icon-hover-danger"> Quitar</a>
+                      </div>
+                    </div>
+                    <!-- CODIGO QR Y UBICACION DEL PRODUCTO -->
+                    <div class="accordion" id="accordionPanelsStayOpenExample">
+                      <div class="accordion-item">
+                        <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+                          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                            Codigo QR del producto
+                          </button>
+                        </h2>
+                        <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
+                          <div class="accordion-body">
+                            <div class="card text-center">
+                              <div class="col-lg-12 img-fluid" id="map" style="height: 300px; width: auto;" ></div>
+                              
+                              <div class="card-body">
+                                
+                                <h5 class="card-title">Bolso de transporte</h5>
+                                <p class="card-text">Con este codigo qr podra hacer seguimiento al estado y ubicación de su producto</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>                
+                    </div>
+                    
+                    <!-- FIN CODIGO QR Y UBICACION DEL PRODUCTO -->
+                  </div>
+                </div>
+                <div class="border-top pt-4 mx-4 mb-4">
+                  <p><i class="fas fa-truck text-muted fa-lg"></i> Despacho Gratis entre 1-2 semanas</p>
+                  <p class="text-muted">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+                    aliquip
+                  </p>
+                </div>
+              </div>
+            </div>
+            
+            <!-- cart -->
+            <!-- summary -->
+            <div class="col-lg-3">
+              <div class="card mb-3 border shadow-0">
+                <div class="card-body">
+                  <form>
+                    <div class="form-group">
+                      <label class="form-label">Tienes Cupon?</label>
+                      <div class="input-group">
+                        <input type="text" class="form-control border" name="" placeholder="Codigo" />
+                        <button class="btn btn-light border">Aplicar</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+              <div class="card shadow-0 border">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between">
+                    <p class="mb-2">Precio Total:</p>
+                    <p class="mb-2">$32.900</p>
+                  </div>
+                  <div class="d-flex justify-content-between">
+                    <p class="mb-2">Descuento:</p>
+                    <p class="mb-2 text-success">-$6.000</p>
+                  </div>
+                  <hr />
+                  <div class="d-flex justify-content-between">
+                    <p class="mb-2">Precio Total:</p>
+                    <p class="mb-2 fw-bold">$26.000</p>
+                  </div>
+      
+                  <div class="mt-3">
+                    <a href="#" class="btn btn-info w-100 shadow-0 mb-2"> Comprar </a>
+                    <a href="#" class="btn btn-secondary w-100 border mt-2"> Volver a productos </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- summary -->
+          </div>
+        </div>
+      </section>
+      <!-- cart + summary -->
+      <section>
+        <div class="container my-5">
+          <header class="mb-4">
+            <h3>Articulos Recomendados</h3>
+          </header>
+      
+          <div class="row">
+            <div class="col-lg-3 col-md-6 col-sm-6">
+              <div class="card px-4 border shadow-0 mb-4 mb-lg-0">
+                <div class="mask px-2" style="height: 50px;">
+                  <div class="d-flex justify-content-between">
+                    <h6><span class="badge bg-danger pt-1 mt-3 ms-2">Nuevo</span></h6>
+                    <a href="#"><i class="fas fa-heart text-primary fa-lg float-end pt-3 m-2"></i></a>
+                  </div>
+                </div>
+                <a href="#" class="">
+                  <img src="{% static 'img/productos/Alimento_seco_para_cachorro_15_kg.webp' %}" class="card-img-top rounded-2" />
+                </a>
+                <div class="card-body d-flex flex-column pt-3 border-top">
+                  <a href="#" class="nav-link">Alimento seco para cachorro 15 kg</a>
+                  <div class="price-wrap mb-2">
+                    <strong class="">$18.950</strong>
+                    <del class="">$24.990</del>
+                  </div>
+                  <div class="card-footer d-flex align-items-end pt-3 px-0 pb-0 mt-auto">
+                    <a href="#" class="btn btn-outline-primary w-100">Agregar al carro</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6">
+              <div class="card px-4 border shadow-0 mb-4 mb-lg-0">
+                <div class="mask px-2" style="height: 50px;">
+                  <a href="#"><i class="fas fa-heart text-primary fa-lg float-end pt-3 m-2"></i></a>
+                </div>
+                <a href="#" class="">
+                  <img src="{% static 'img/productos/Bandana.png' %}" class="card-img-top rounded-2" />
+                </a>
+                <div class="card-body d-flex flex-column pt-3 border-top">
+                  <a href="#" class="nav-link">Bandana para perro</a>
+                  <div class="price-wrap mb-2">
+                    <strong class="">$12.000</strong>
+                  </div>
+                  <div class="card-footer d-flex align-items-end pt-3 px-0 pb-0 mt-auto">
+                    <a href="#" class="btn btn-outline-primary w-100">Agregar al carro</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6">
+              <div class="card px-4 border shadow-0">
+                <div class="mask px-2" style="height: 50px;">
+                  <a href="#"><i class="fas fa-heart text-primary fa-lg float-end pt-3 m-2"></i></a>
+                </div>
+                <a href="#" class="">
+                  <img src="{% static 'img/productos/Correa.jpg' %}" class="card-img-top rounded-2" />
+                </a>
+                <div class="card-body d-flex flex-column pt-3 border-top">
+                  <a href="#" class="nav-link">Correa luminicente</a>
+                  <div class="price-wrap mb-2">
+                    <strong class="">$80.500</strong>
+                  </div>
+                  <div class="card-footer d-flex align-items-end pt-3 px-0 pb-0 mt-auto">
+                    <a href="#" class="btn btn-outline-primary w-100">Agregar al carro</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6">
+              <div class="card px-4 border shadow-0">
+                <div class="mask px-2" style="height: 50px;">
+                  <a href="#"><i class="fas fa-heart text-primary fa-lg float-end pt-3 m-2"></i></a>
+                </div>
+                <a href="#" class="">
+                  <img src="{% static 'img/productos/Alimento_seco_para_perro_senior_15_kg.jpg' %}" class="card-img-top rounded-2" />
+                </a>
+                <div class="card-body d-flex flex-column pt-3 border-top">
+                  <a href="#" class="nav-link"> Alimento seco para perro senior 15 kg</a>
+                  <div class="price-wrap mb-2">
+                    <strong class="">$13.900</strong>
+                  </div>
+                  <div class="card-footer d-flex align-items-end pt-3 px-0 pb-0 mt-auto">
+                    <a href="#" class="btn btn-outline-primary w-100">Agregar al carro</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Recommended -->
+
+
+
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+      
+
+    <!-- GLIDER JS - CAROUSEL -->
+    <script src="https://cdn.jsdelivr.net/npm/glider-js@1.7.8/glider.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fontawesome@5.6.3/index.min.js"></script>
+    
+    <!-- JQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.js"></script>
+    
+    <script src="{% static './js/nosotros/valida__contact.js' %}"></script>
+    
+    <!-- NOSOTROS SCRIPT -->
+    <script src="{% static './js/nosotros/nosotros.js' %}"></script>
+    
+    <!-- MAPBOX -->
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.5.1/mapbox-gl.js"></script>
+    <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.0/mapbox-gl-directions.js"></script>
+      
+    
+    <!-- MAPA - ubicacion PATITAS -->
+    <script src="{% static './js/miCarrito/mapa.js' %}"></script>
+
+
+    <!-- ================================================================= -->
+    <!-- ==============             SCRIPT PAGINA LOADER   =============== -->
+    <!-- ================================================================= -->
+    <!-- LLAMAR JS LOADER Y FUNCIONALIDAD DE RECARGA -->
+    <script src="{% static './js/loader.js' %}"></script>
+    <script>
+      // Código JavaScript para quitar la clase "loading" y agregar la clase "loaded" después de una demora
+      window.addEventListener("load", function() {
+        setTimeout(function() {
+          document.body.classList.remove("loading");
+          document.body.classList.add("loaded");
+        }, 1000); // Ajusta el valor de la demora según sea necesario (en milisegundos)
+      });
+    </script>
+    
+
+</body class="loading"> 
+
+
+
+
+
+<!-- Footer -->
+<footer class="btn-dark bg-dark  text-center text-lg-start text-muted mt-3">
+  <!-- Section: Links  -->
+  <section>
+    <div class="container text-center text-md-start pt-4 pb-4">
+      <!-- Grid row -->
+      <div class="row mt-3">
+        <!-- Grid column -->
+        <div class="col-12 col-lg-3 col-sm-12 mb-2 text-center">
+          <!-- Content -->
+          <a href="{% url 'index' %}" target="_blank" class="text-white h2">
+            <img class="mb-3" src="{% static 'img/logo/Nuevo_logo/LogoAccent.png' %}" width="64px" alt="">
+          </a>
+          <p class="mt-1 text-white">
+            © 2023 Copyright - Derechos reservados: Ulises Morales González
+          </p>
+        </div>
+        <!-- Grid column -->
+
+        <!-- Grid column -->
+        <div class="col-6 col-sm-4 col-lg-2"> 
+          <!-- Links -->
+          <h6 class="text-uppercase text-white fw-bold mb-2">
+            Tienda
+          </h6>
+          <ul class="list-unstyled mb-4">
+            <li><a class="text-white-50" target="_blank" href="https://github.com/ulMorales?tab=repositories">Inicio</a></li>
+            <li><a class="text-white-50" target="_blank" href="https://github.com/ulMorales?tab=repositories">Productos</a></li>
+            <li><a class="text-white-50" target="_blank" href="https://github.com/ulMorales?tab=repositories">Nosotros</a></li>
+            <li><a class="text-white-50" target="_blank" href="https://github.com/ulMorales?tab=repositories">Blogs</a></li>
+          </ul>
+        </div>
+        <!-- Grid column -->
+
+        <!-- Grid column -->
+        <div class="col-6 col-sm-4 col-lg-2">
+          <!-- Links -->
+          <h6 class="text-uppercase text-white fw-bold mb-2">
+            Información
+          </h6>
+          <ul class="list-unstyled mb-4">
+            <li><a class="text-white-50" target="_blank" href="https://github.com/ulMorales?tab=repositories">Ayuda</a></li>
+            <li><a class="text-white-50" target="_blank" href="https://github.com/ulMorales?tab=repositories">Reembolso</a></li>
+            <li><a class="text-white-50" target="_blank" href="https://github.com/ulMorales?tab=repositories">Informaciones</a></li>
+            <li><a class="text-white-50" target="_blank" href="https://github.com/ulMorales?tab=repositories">Contacto</a></li>
+          </ul>
+        </div>
+        <!-- Grid column -->
+
+        <!-- Grid column -->
+        <div class="col-6 col-sm-4 col-lg-2">
+          <!-- Links -->
+          <h6 class="text-uppercase text-white fw-bold mb-2">
+            Soporte tecnico
+          </h6>
+          <ul class="list-unstyled mb-4">
+            <li><a class="text-white-50" href="https://github.com/ulMorales?tab=repositories" target="_blank">Centro de ayuda</a></li>
+            <li><a class="text-white-50" href="https://github.com/ulMorales?tab=repositories" target="_blank">Documentos</a></li>
+            <li><a class="text-white-50" href="https://github.com/ulMorales?tab=repositories" target="_blank">Restaurar cuenta</a></li>
+            <li><a class="text-white-50" href="https://github.com/ulMorales?tab=repositories" target="_blank">Mis ordenes</a></li>
+          </ul>
+        </div>
+        <!-- Grid column -->
+
+        <!-- Grid column -->
+        <div class="col-12 col-sm-12 col-lg-3">
+          <!-- Links -->
+          <h6 class="text-uppercase text-white fw-bold mb-2">Novedades</h6>
+          <p class="text-white">Mantente al tanto de las ultimas novedades sobre nuestros productos y ofertas.</p>
+          <div class="input-group mb-3">
+            <!-- <input type="email" class="form-control border" placeholder="Correo" aria-label="Email" aria-describedby="button-addon2" />
+            <button class="btn btn-light border shadow-0" type="button" id="button-addon2" data-mdb-ripple-color="dark">
+              Enviar
+            </button> -->
+          </div>
+        </div>
+        <!-- Grid column -->
+      </div>
+      <!-- Grid row -->
+    </div>
+  </section>
+  <!-- Section: Links  -->
+
+  <div class="footer-iconos">
+    <div class="container">
+      <div class="d-flex justify-content-between py-4 border-top">
+        <!--- payment --->
+        <div>
+          <i class="fab fa-lg fa-cc-visa text-white"></i>
+          <i class="fab fa-lg fa-cc-amex text-white"></i>
+          <i class="fab fa-lg fa-cc-mastercard text-white"></i>
+          <i class="fab fa-lg fa-cc-paypal text-white"></i>
+
+          
+        </div>
+        <!--- payment --->
+        <div class="social">
+          <a href="https://github.com/ulMorales?tab=repositories" target="_blank" class="social__enlace"><i class="fa-brands fa-facebook"></i></a>
+          <a href="https://github.com/ulMorales?tab=repositories" target="_blank" class="social__enlace"><i class="fa-brands fa-instagram"></i></a>
+          <a href="https://github.com/ulMorales?tab=repositories" target="_blank" class="social__enlace"><i class="fa-brands fa-github"></i></a>
+          <a href="https://github.com/ulMorales?tab=repositories" target="_blank" class="social__enlace"><i class="fa-brands fa-twitter"></i></a>
+          
+        </div>
+
+        <!--- language selector --->
+        <div class="dropdown dropup">
+          <a class="dropdown-toggle text-white" href="#" id="Dropdown" role="button" data-mdb-toggle="dropdown" aria-expanded="false"> <i class="flag-spain flag m-0 me-1"></i>Español </a>
+
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="Dropdown">
+            <li>
+              <a class="dropdown-item" href="#"><i class="flag-spain flag"></i>Español<i class="fa fa-check text-success ms-2"></i></a>
+            </li>
+            <li><hr class="dropdown-divider" /></li>
+            <li>
+              <a class="dropdown-item" href="#"><i class="flag-united-kingdom flag"></i>English</a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="#"><i class="flag-poland flag"></i>Polski</a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="#"><i class="flag-china flag"></i>中文</a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="#"><i class="flag-japan flag"></i>日本語</a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="#"><i class="flag-germany flag"></i>Deutsch</a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="#"><i class="flag-france flag"></i>Français</a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="#"><i class="flag-russia flag"></i>Русский</a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="#"><i class="flag-portugal flag"></i>Português</a>
+            </li>
+          </ul>
+        </div>
+        <!--- language selector --->
+      </div>
+    </div>
+  </div>
+</footer>
+<!-- Footer -->
+</html>
