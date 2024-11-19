@@ -2,9 +2,10 @@
 <h3>Este proyecto es una página web dinámica para la venta de productos para mascotas, desarrollada con Bootstrap en el frontend y Django en el backend. Utiliza SQLite3 como base de datos, gestionada a través de Django.
 La aplicación ofrece diversas funcionalidades para e-commerce, destacando el desarrollo fullstack y la integración de APIs REST.
 </h3>
+<img src="https://github.com/Ulises2024/Patitas-WEB/blob/main/source_readme/pantalla_principal_patitas.png">
 <hr>
 <br>
-<h2>Caso
+<h2>1. Caso
 </h2>
 <p>
   Un grupo de amigas comenzó a realizar la venta de productos para mascotas como bandanas, correas e identificaciones, todo esto para ayudar a una fundación sin fines de lucro, todo partió a través de las redes sociales, pero en la actualidad es casi imposible dar abasto a la demanda a través de las redes sociales.
@@ -32,6 +33,47 @@ La aplicación ofrece diversas funcionalidades para e-commerce, destacando el de
   <li>Se deben crear mantenedores para la información relativa a clientes, usuarios, productos, promociones o descuentos.</li>
   <li>El sistema debe permitir mostrar las opciones de acuerdo con los perfiles de cada usuario.</li>
 </ul>
+<br>
+<h2>2. Tecnologías utilizadas</h2>
+<ul>
+  <li><strong>Frontend:</strong> Bootstrap, HTML, CSS y JavaScript.</li>
+  <li><strong>Backend:</strong> Python y Django.</li>
+  <li><strong>Base de datos:</strong> SQLite3.</li>
+  <li><strong>APIs:</strong> api.thecatapi.com, api.thedogapi.com y Mapbox Maps Service.</li>
+  <li><strong>Otras:</strong> Git, Github y Trello.</li>
 
-
+</ul>
+<br>
+<h2>3. Instalación y configuración</h2>
+<p>Guía paso a paso para ejecutar el proyecto localmente.</p>
+<ul>
+  <li>1.- Clona este repositorio:<br>
+  <pre>
+    <code>git clone https://github.com/usuario/patitas-web.git  
+    cd patitas-web</code>
+  </pre>
+  </li>
+  <li>2.- Crea y activa un entorno virtual:<br>
+  <pre>
+    <code>python -m venv env  
+    source env/bin/activate  # En Windows: env\Scripts\activate</code>
+  </pre>
+  </li>
+  <li>3.- Instala las dependencias:<br>
+  <pre>
+    <code>pip install -r requisitos.txt</code>
+  </pre>
+  </li>
+  <li>4.- Realiza las migraciones de la base de datos:<br>
+  <pre>
+    <code>python manage.py migrate</code>
+  </pre>
+  </li>
+  <li>5.- Inicia el servidor:<br>
+  <pre>
+    <code>python manage.py runserver</code>
+  </pre>
+  </li>
+  <p>Accede a la aplicación en tu navegador: http://127.0.0.1:8000.</p>
+</ul>
 
